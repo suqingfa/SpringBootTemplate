@@ -23,7 +23,7 @@ public class User implements UserDetails
     @JoinTable
     private List<Authority> authorities;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
     @Column
     private String password;

@@ -20,7 +20,10 @@ public class Output<T>
 	public enum Code
 	{
 		OK(0),
+        NotLogin(100),
+        UsernameExist(101),
 		Error(200),
+        ParameterError(203),
 		;
 
 		@Getter

@@ -4,7 +4,7 @@ public interface OutputResult
 {
     default <T> Output<T> output(Output.Code code, T data)
     {
-        return new Output(code, data);
+        return new Output<>(code, data);
     }
 
     default <T> Output<T> output(Output.Code code)
@@ -22,8 +22,23 @@ public interface OutputResult
         return output(Output.Code.OK);
     }
 
+    default Output outputNotLogin()
+    {
+        return output(Output.Code.NotLogin);
+    }
+
+    default Output outputUsernameExist()
+    {
+        return output(Output.Code.UsernameExist);
+    }
+
     default Output outputError()
     {
         return output(Output.Code.Error);
+    }
+
+    default Output outputParameterError()
+    {
+        return output(Output.Code.ParameterError);
     }
 }

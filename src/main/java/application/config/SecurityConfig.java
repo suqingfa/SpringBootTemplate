@@ -1,7 +1,7 @@
 package application.config;
 
 import application.entity.User;
-import application.service.UserService;
+import application.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.query.spi.EvaluationContextExtension;
@@ -33,11 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserService service)
+    public UserDetailsService userDetailsService(UserRepository userRepository)
     {
         return username ->
         {
-            User user = service.findByUsername(username);
+            User user = userRepository.findByUsername(username);
             if (user != null)
             {
                 return user;
@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception
+    public void configure(WebSecurity web)
     {
         web.ignoring()
                 .antMatchers("/error/**", "/js/**", "/css/**", "/images/**", "/**/favicon.ico", "/lib/**");
@@ -92,8 +92,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
+        http.csrf().disable();
+
         http.authorizeRequests()
-                .antMatchers("/api/account/**").permitAll()
+                .antMatchers("/api/account/login",
+                        "/api/account/register").permitAll()
                 .anyRequest().authenticated();
 
         // 配置指定登录页的位置
