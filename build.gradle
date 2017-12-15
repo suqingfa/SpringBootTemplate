@@ -1,0 +1,58 @@
+group 'SpringBootTemplate'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile(
+            'org.postgresql:postgresql',
+            'org.springframework.boot:spring-boot-configuration-processor',
+            'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-security',
+            'org.springframework.boot:spring-boot-starter-validation',
+            'org.springframework.boot:spring-boot-starter-web',
+    )
+
+    providedCompile(
+            'javax.servlet:javax.servlet-api',
+    )
+
+    compileOnly(
+            'org.projectlombok:lombok',
+            'org.springframework.boot:spring-boot-devtools',
+    )
+
+    testCompile(
+            'org.springframework.boot:spring-boot-starter-test',
+            'org.springframework.security:spring-security-test',
+            'com.squareup.retrofit2:converter-gson:2.+',
+    )
+}
+
