@@ -1,5 +1,6 @@
 package application;
 
+import application.util.GenerateRandomSequence;
 import org.junit.Test;
 
 public class JavaTest implements GetLogger
@@ -7,6 +8,10 @@ public class JavaTest implements GetLogger
     @Test
     public void test()
     {
-        getLogger().debug("test");
+        GenerateRandomSequence randomSequence  = new GenerateRandomSequence();
+        for (int i = 0; i < 100; i++)
+        {
+            getLogger().debug(randomSequence.getRandomUppercaseNumber());
+        }
     }
 }
