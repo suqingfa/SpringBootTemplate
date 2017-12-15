@@ -3,6 +3,7 @@ package application.entity;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -38,4 +39,15 @@ public class User implements UserDetails
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private Timestamp createTime;
+
+    public static String getUserId()
+    {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User)
+        {
+            User user = (User) principal;
+            return user.getId();
+        }
+        return null;
+    }
 }

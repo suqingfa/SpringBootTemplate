@@ -3,8 +3,7 @@ package application.service;
 import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
-import application.model.account.RegisterInput;
-import application.model.account.UpdateInput;
+import application.model.account.*;
 import application.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +34,11 @@ public class AccountService implements OutputResult
         input.update(user);
         userRepository.save(user);
         return outputOk();
+    }
+
+    public Output<UserInfoOutput> getUserInfo(String id)
+    {
+        UserInfoOutput output = new UserInfoOutput().fromEntity(userRepository.findOne(id));
+        return output(output);
     }
 }

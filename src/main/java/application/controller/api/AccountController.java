@@ -1,6 +1,7 @@
 package application.controller.api;
 
 import application.GetLogger;
+import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.RegisterInput;
@@ -39,5 +40,12 @@ public class AccountController implements GetLogger, OutputResult
         if (errors.hasErrors())
             return outputParameterError();
         return accountService.update(input);
+    }
+
+    @GetMapping({"getUserInfo", "getUserInfo/{id}"})
+    public Output getUserInfo()
+    {
+        String id = User.getUserId();
+        return accountService.getUserInfo(id);
     }
 }
