@@ -4,6 +4,7 @@ import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.RegisterInput;
+import application.model.account.UpdateInput;
 import application.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,14 @@ public class AccountService implements OutputResult
         User user = userRepository.save(input.toEntity());
         if (user == null)
             return outputParameterError();
+        return outputOk();
+    }
+
+    public Output update(UpdateInput input)
+    {
+        User user = userRepository.getCurrentUser();
+        input.update(user);
+        userRepository.save(user);
         return outputOk();
     }
 }

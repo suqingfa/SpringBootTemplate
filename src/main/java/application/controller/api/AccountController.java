@@ -4,6 +4,7 @@ import application.GetLogger;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.RegisterInput;
+import application.model.account.UpdateInput;
 import application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
@@ -30,5 +31,13 @@ public class AccountController implements GetLogger, OutputResult
         if (errors.hasErrors())
             return outputParameterError();
         return accountService.register(input);
+    }
+
+    @PostMapping("update")
+    public Output update(@Valid @RequestBody UpdateInput input, Errors errors)
+    {
+        if (errors.hasErrors())
+            return outputParameterError();
+        return accountService.update(input);
     }
 }
