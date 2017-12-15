@@ -3,12 +3,12 @@ package application.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ModelFromEntityList<F, T extends ModelFromEntityList<F, T>> implements ModelFromEntity<F, T>
+public abstract class ModelFromEntityList<F> implements ModelFromEntity<F>
 {
-    public List<T> fromEntityList(List<F> fs)
+    public List<ModelFromEntity<F>> fromEntityList(List<F> fs)
     {
-        Class<T> tClass = (Class<T>) getClass();
-        List<T> output = new ArrayList<>();
+        Class<? extends ModelFromEntity> tClass = getClass();
+        List<ModelFromEntity<F>> output = new ArrayList<>();
         try
         {
             for (F f : fs)

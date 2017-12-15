@@ -1,6 +1,6 @@
 package application.model;
 
-public interface ModelFromEntity<F, T extends ModelFromEntity<F, T>>
+public interface ModelFromEntity<F>
 {
-	T fromEntity(F f);
+	ModelFromEntity<F> fromEntity(F f);
 }
