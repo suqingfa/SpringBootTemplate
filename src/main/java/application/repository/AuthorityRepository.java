@@ -1,11 +1,10 @@
 package application.repository;
 
-import application.entity.User;
+import application.entity.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String>
+public interface AuthorityRepository extends JpaRepository<Authority, String>
 {
-    User findByUsername(String username);
 }
