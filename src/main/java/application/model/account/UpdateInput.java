@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Validated
-public class UpdateInput implements ModelUpdateEntity<User>
+public class UpdateInput extends ModelUpdateEntity<User>
 {
     @NotNull
     @Length(min = 6)

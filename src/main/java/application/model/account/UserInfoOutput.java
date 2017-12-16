@@ -5,7 +5,7 @@ import application.model.ModelFromEntity;
 import lombok.Data;
 
 @Data
-public class UserInfoOutput implements ModelFromEntity<User>
+public class UserInfoOutput extends ModelFromEntity<User>
 {
     private String id;
     private String username;

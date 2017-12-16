@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Validated
-public class RegisterInput implements ModelToEntity<User>
+public class RegisterInput extends ModelToEntity<User>
 {
     @NotNull
     @Length(min = 4)

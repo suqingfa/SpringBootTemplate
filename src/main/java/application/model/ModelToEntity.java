@@ -1,6 +1,6 @@
 package application.model;
 
-public interface ModelToEntity <T>
+public abstract class ModelToEntity<T>
 {
-	T toEntity();
+    public abstract T toEntity();
 }

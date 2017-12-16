@@ -3,9 +3,9 @@ package application.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ModelFromEntityList<F> implements ModelFromEntity<F>
+public abstract class ModelFromEntityList<F> extends ModelFromEntity<F>
 {
-    public List<ModelFromEntity<F>> fromEntityList(List<F> fs)
+    public List<? extends ModelFromEntity<F>> fromEntityList(List<F> fs)
     {
         Class<? extends ModelFromEntity> tClass = getClass();
         List<ModelFromEntity<F>> output = new ArrayList<>();
