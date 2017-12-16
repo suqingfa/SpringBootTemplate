@@ -1,6 +1,7 @@
 package application;
 
 import application.util.GenerateRandomSequence;
+import application.util.GetLogger;
 import org.junit.Test;
 
 public class JavaTest implements GetLogger

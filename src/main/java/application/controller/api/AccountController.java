@@ -1,6 +1,6 @@
 package application.controller.api;
 
-import application.GetLogger;
+import application.util.GetLogger;
 import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
