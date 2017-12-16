@@ -1,0 +1,11 @@
+package application.config.properties;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@Data
+@ConfigurationProperties(prefix = "demo")
+public class DemoProperties
+{
+    private String key;
+}

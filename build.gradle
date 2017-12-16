@@ -33,7 +33,7 @@ configurations {
 dependencies {
     compile(
             'org.postgresql:postgresql',
-            //'org.springframework.boot:spring-boot-configuration-processor',
+            'org.springframework.boot:spring-boot-configuration-processor',
             'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-data-redis',
             'org.springframework.boot:spring-boot-starter-security',

@@ -1,5 +1,6 @@
 package application;
 
+import application.config.properties.DemoProperties;
 import application.util.GetLogger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,5 +32,12 @@ public class ApplicationTest implements GetLogger
             valueOperations.set("ttl", "value", 100, TimeUnit.SECONDS);
         }
         Assert.assertEquals(valueOperations.get("ttl"), "value");
+    }
+
+    @Test
+    public void testProperties()
+    {
+        DemoProperties properties = Application.getBean(DemoProperties.class);
+        getLogger().warn(properties.getKey());
     }
 }
