@@ -3,14 +3,16 @@ package application.model.account;
 import application.Application;
 import application.entity.User;
 import application.model.ModelToEntity;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @Validated
 public class RegisterInput extends ModelToEntity<User>
 {

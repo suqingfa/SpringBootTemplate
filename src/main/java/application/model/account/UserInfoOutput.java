@@ -2,9 +2,11 @@ package application.model.account;
 
 import application.entity.User;
 import application.model.ModelFromEntity;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserInfoOutput extends ModelFromEntity<User>
 {
     private String id;
