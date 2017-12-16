@@ -1,12 +1,12 @@
 package application.controller.api;
 
-import application.util.GetLogger;
 import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.RegisterInput;
 import application.model.account.UpdateInput;
 import application.service.AccountService;
+import application.util.GetLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +43,12 @@ public class AccountController implements GetLogger, OutputResult
     }
 
     @GetMapping({"getUserInfo", "getUserInfo/{id}"})
-    public Output getUserInfo()
+    public Output getUserInfo(@PathVariable(value = "id", required = false) String id)
     {
-        String id = User.getUserId();
+        if (id == null)
+        {
+            id = User.getUserId();
+        }
         return accountService.getUserInfo(id);
     }
 }
