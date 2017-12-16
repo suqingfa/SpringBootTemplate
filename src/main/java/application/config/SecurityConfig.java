@@ -1,5 +1,6 @@
 package application.config;
 
+import application.controller.api.AccountController;
 import application.entity.User;
 import application.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -38,12 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         return username ->
         {
             User user = userRepository.findByUsername(username);
-            if (user != null)
+            if (user == null)
             {
-                return user;
+                throw new UsernameNotFoundException("UsernameNotFoundException");
             }
-
-            throw new UsernameNotFoundException("UsernameNotFoundException");
+            if (AccountController.getAutoLoginPassword() != null)
+            {
+                String password = passwordEncoder().encode(AccountController.getAutoLoginPassword());
+                user.setPassword(password);
+            }
+            return user;
         };
     }
 
