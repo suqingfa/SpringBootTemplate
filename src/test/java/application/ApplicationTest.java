@@ -1,6 +1,7 @@
 package application;
 
 import application.config.properties.DemoProperties;
+import application.scheduled.AsyncTask;
 import application.util.GetLogger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
@@ -39,5 +41,13 @@ public class ApplicationTest implements GetLogger
     {
         DemoProperties properties = Application.getBean(DemoProperties.class);
         getLogger().warn(properties.getKey());
+    }
+
+    @Test
+    public void testAsync() throws Exception
+    {
+        AsyncTask task = Application.getBean(AsyncTask.class);
+        Future<String> result = task.doTask();
+        getLogger().warn(result.get());
     }
 }
