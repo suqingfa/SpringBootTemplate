@@ -7,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Field;
 
 @Component
 public class DatabaseInitializer implements CommandLineRunner, GetLogger
@@ -16,17 +15,15 @@ public class DatabaseInitializer implements CommandLineRunner, GetLogger
     private AuthorityRepository authorityRepository;
 
     @Override
-    public void run(String... args) throws IllegalAccessException
+    public void run(String... args)
     {
-        Class<Authority.Roles> rolesClass = Authority.Roles.class;
-        for (Field field : rolesClass.getFields())
+        Class<Authority.Role> roleClass = Authority.Role.class;
+        for (Authority.Role role : roleClass.getEnumConstants())
         {
-            String authorityString = (String) field.get(rolesClass);
-            if (authorityRepository.existsByAuthority(authorityString))
+            if (authorityRepository.existsByRole(role))
                 continue;
-
             Authority authority = new Authority();
-            authority.setAuthority(authorityString);
+            authority.setRole(role);
             authorityRepository.save(authority);
         }
     }

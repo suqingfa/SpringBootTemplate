@@ -5,8 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -18,15 +16,19 @@ public class Authority implements GrantedAuthority
     @GeneratedValue(generator = "uuid")
     private String id;
 
-    @ManyToMany(mappedBy = "authorities", targetEntity = User.class)
-    private transient List<User> users = new ArrayList<>();
-
     @Column(unique = true)
-    private String authority;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public interface Roles
+    @Override
+    public String getAuthority()
     {
-        String ADMIN = "ADMIN";
-        String USER = "USER";
+        return role.name();
+    }
+
+    public enum Role
+    {
+        ADMIN,
+        USER,
     }
 }
