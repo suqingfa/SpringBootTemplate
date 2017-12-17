@@ -23,4 +23,10 @@ public class Authority implements GrantedAuthority
 
     @Column(unique = true)
     private String authority;
+
+    public interface Roles
+    {
+        String ADMIN = "ADMIN";
+        String USER = "USER";
+    }
 }
