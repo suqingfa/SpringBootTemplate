@@ -36,7 +36,7 @@ public class User implements UserDetails
     @Column(nullable = false, updatable = false)
     private Timestamp createTime;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private Set<Authority> authorities;
 

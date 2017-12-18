@@ -1,6 +1,5 @@
 package application.config;
 
-import application.controller.api.AccountController;
 import application.entity.User;
 import application.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -42,11 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             if (user == null)
             {
                 throw new UsernameNotFoundException("UsernameNotFoundException");
-            }
-            if (AccountController.getAutoLoginPassword() != null)
-            {
-                String password = passwordEncoder().encode(AccountController.getAutoLoginPassword());
-                user.setPassword(password);
             }
             return user;
         };
@@ -107,6 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         // 配置指定登录页的位置
         http.formLogin()
                 .loginPage("/api/account/login")
+                .successForwardUrl("/api/account/loginSuccess")
                 .permitAll();
 
         // 记住登陆状态
