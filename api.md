@@ -66,6 +66,11 @@
         参数错误
         "code":201
 
+## 注销
+    /logout post
+    Response
+        "code":100
+
 ## 修改密码
     /updatePassword post
     Request

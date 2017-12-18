@@ -106,14 +106,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
         // 记住登陆状态
         http.rememberMe()
-                .rememberMeCookieName("rm")
-                .tokenValiditySeconds(1800);
+                .tokenValiditySeconds(10 * 24 * 3600);
 
         http.logout()
                 .logoutUrl("/api/account/logout")
                 .logoutSuccessUrl("/account/login?logout")
-                .invalidateHttpSession(true)
-                .deleteCookies("xxx");
+                .invalidateHttpSession(true);
 
         // 会话管理
         http.sessionManagement()

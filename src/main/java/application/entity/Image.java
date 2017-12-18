@@ -12,7 +12,7 @@ public class Image
     @Id
     private String id;
 
-    @Column(nullable = false, columnDefinition = "mediumblob")
+    @Column(nullable = false, columnDefinition = "bytea")
     @Size(min = 10240, max = 10240 * 1024)
     private byte[] data;
 }
