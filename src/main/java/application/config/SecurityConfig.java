@@ -94,17 +94,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/api/account/login",
-                        "/api/account/register").permitAll()
+                .antMatchers("/api/account/login", "/api/account/register").permitAll()
                 .anyRequest().authenticated();
 
-        // 配置指定登录页的位置
         http.formLogin()
                 .loginPage("/api/account/login")
                 .successForwardUrl("/api/account/loginSuccess")
                 .permitAll();
 
-        // 记住登陆状态
         http.rememberMe()
                 .tokenValiditySeconds(10 * 24 * 3600);
 
@@ -113,9 +110,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .logoutSuccessUrl("/account/login?logout")
                 .invalidateHttpSession(true);
 
-        // 会话管理
         http.sessionManagement()
-                .sessionFixation().migrateSession()
-                .maximumSessions(1).expiredUrl("/api/account/login?maxSessions");
+                .sessionFixation()
+                .migrateSession()
+                .maximumSessions(1)
+                .expiredUrl("/api/account/login?maxSessions");
     }
 }
