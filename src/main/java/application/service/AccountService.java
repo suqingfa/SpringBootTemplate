@@ -1,16 +1,16 @@
 package application.service;
 
-import application.entity.*;
+import application.entity.Image;
+import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.*;
-import application.repository.*;
+import application.repository.ImageRepository;
+import application.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.HashSet;
 
 @Service
 @Transactional
@@ -19,8 +19,6 @@ public class AccountService implements OutputResult
     @Resource
     private UserRepository userRepository;
     @Resource
-    private AuthorityRepository authorityRepository;
-    @Resource
     private ImageRepository imageRepository;
 
     public Output register(RegisterInput input)
@@ -28,10 +26,7 @@ public class AccountService implements OutputResult
         if (userRepository.existsByUsername(input.getUsername()))
             return outputUsernameExist();
 
-        User user = input.toEntity();
-        Authority authority = authorityRepository.findByRole(input.getRole());
-        user.setAuthorities(new HashSet<>(Arrays.asList(authority)));
-        userRepository.save(user);
+        userRepository.save(input.toEntity());
 
         return outputOk();
     }
