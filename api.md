@@ -57,7 +57,10 @@
 ## 登录
     /login post
     Content-Type:application/x-www-form-urlencoded
-    Request Body   username=**&password=**
+    Request
+        username=
+        password=
+        remember-me=true|false  // 可选
     Response
         成功
         "code":0
