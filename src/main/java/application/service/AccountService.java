@@ -1,12 +1,10 @@
 package application.service;
 
-import application.entity.Authority;
-import application.entity.User;
+import application.entity.*;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.*;
-import application.repository.AuthorityRepository;
-import application.repository.UserRepository;
+import application.repository.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +20,8 @@ public class AccountService implements OutputResult
     private UserRepository userRepository;
     @Resource
     private AuthorityRepository authorityRepository;
+    @Resource
+    private ImageRepository imageRepository;
 
     public Output register(RegisterInput input)
     {
@@ -48,5 +48,24 @@ public class AccountService implements OutputResult
     {
         UserInfoOutput output = new UserInfoOutput().fromEntity(userRepository.findOne(id));
         return output(output);
+    }
+
+    public byte[] getUserAvatar(String UserId)
+    {
+        Image image = imageRepository.findOne("UserAvatar/" + UserId);
+        if (image == null)
+        {
+            image = imageRepository.findOne("UserAvatar");
+        }
+        return image.getData();
+    }
+
+    public Output setUserAvatar(byte[] data)
+    {
+        Image image = new Image();
+        image.setId("UserAvatar/" + User.getUserId());
+        image.setData(data);
+        imageRepository.save(image);
+        return outputOk();
     }
 }

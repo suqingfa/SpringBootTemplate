@@ -17,9 +17,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/account")
@@ -67,6 +70,29 @@ public class AccountController implements GetLogger, OutputResult
         if (output.getCodeInfo() == Output.Code.OK)
             autoLogin(input.getUsername(), input.getPassword());
         return output;
+    }
+
+    @GetMapping({"getUserAvatar", "getUserAvatar/{id}"})
+    public void getUserAvatar(@PathVariable(value = "id", required = false) String id, ServletResponse response) throws IOException
+    {
+        if (id == null)
+        {
+            id = User.getUserId();
+        }
+        byte[] data = accountService.getUserAvatar(id);
+        response.setContentType("image/png");
+        response.getOutputStream().write(data);
+    }
+
+    @PostMapping("setUserAvatar")
+    public Output setUserAvatar(@RequestParam("file") MultipartFile file) throws IOException
+    {
+        if (file.isEmpty())
+        {
+            return outputParameterError();
+        }
+        byte[] data = file.getBytes();
+        return accountService.setUserAvatar(data);
     }
 
     protected void autoLogin(String username, String password)
