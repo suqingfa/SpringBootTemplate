@@ -28,10 +28,7 @@ public class AccountService implements OutputResult
         if (userRepository.existsByUsername(input.getUsername()))
             return outputUsernameExist();
 
-        User user = userRepository.save(input.toEntity());
-        if (user == null)
-            return outputParameterError();
-
+        User user = input.toEntity();
         Authority authority = authorityRepository.findByRole(input.getRole());
         user.setAuthorities(new HashSet<>(Arrays.asList(authority)));
         userRepository.save(user);
