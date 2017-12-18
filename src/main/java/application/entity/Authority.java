@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -25,6 +26,9 @@ public class Authority implements GrantedAuthority
     {
         return role.name();
     }
+
+    @ManyToMany
+    private transient Set<User> users;
 
     public enum Role
     {

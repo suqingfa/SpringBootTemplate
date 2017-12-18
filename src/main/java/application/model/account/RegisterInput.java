@@ -1,6 +1,7 @@
 package application.model.account;
 
 import application.Application;
+import application.entity.Authority;
 import application.entity.User;
 import application.model.ModelToEntity;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class RegisterInput extends ModelToEntity<User>
     @NotNull
     @Length(min = 6)
     private String password;
+    private Authority.Role role = Authority.Role.USER;
 
     @Override
     public User toEntity()

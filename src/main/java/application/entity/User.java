@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,10 +19,6 @@ public class User implements UserDetails
     @GenericGenerator(name = "uuid", strategy = "uuid")
     @GeneratedValue(generator = "uuid")
     private String id;
-
-    @ManyToMany(targetEntity = Authority.class, fetch = FetchType.EAGER)
-    @JoinTable
-    private List<Authority> authorities;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -39,6 +35,10 @@ public class User implements UserDetails
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private Timestamp createTime;
+
+    @ManyToMany
+    @JoinTable
+    private Set<Authority> authorities;
 
     public static String getUserId()
     {
