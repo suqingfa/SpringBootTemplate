@@ -36,7 +36,7 @@ public class AccountService implements OutputResult
         return outputOk();
     }
 
-    public Output update(UpdateInput input)
+    public Output updatePassword(UpdatePasswordInput input)
     {
         User user = userRepository.getCurrentUser();
         input.update(user);

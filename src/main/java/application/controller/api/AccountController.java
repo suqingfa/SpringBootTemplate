@@ -5,7 +5,7 @@ import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.RegisterInput;
-import application.model.account.UpdateInput;
+import application.model.account.UpdatePasswordInput;
 import application.service.AccountService;
 import application.util.GetLogger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +40,12 @@ public class AccountController implements GetLogger, OutputResult
         return outputOk();
     }
 
-    @PostMapping("update")
-    public Output update(@Valid @RequestBody UpdateInput input, Errors errors)
+    @PostMapping("updatePassword")
+    public Output updatePassword(@Valid @RequestBody UpdatePasswordInput input, Errors errors)
     {
         if (errors.hasErrors())
             return outputParameterError();
-        return accountService.update(input);
+        return accountService.updatePassword(input);
     }
 
     @GetMapping({"getUserInfo", "getUserInfo/{id}"})

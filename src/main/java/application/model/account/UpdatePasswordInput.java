@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Validated
-public class UpdateInput extends ModelUpdateEntity<User>
+public class UpdatePasswordInput extends ModelUpdateEntity<User>
 {
     @NotNull
     @Length(min = 6)

@@ -23,7 +23,7 @@ public class Output<T>
         NotLogin(100),
         UsernameExist(101),
 		Error(200),
-        ParameterError(203),
+        ParameterError(201),
 		;
 
 		@Getter
