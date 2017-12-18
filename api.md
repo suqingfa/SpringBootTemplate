@@ -1,4 +1,4 @@
-#说明
+# 说明
     前端与后台使用Cookie保持会话，因此前端请求的时候需要携带相应Cookie, 请求响应时需要保存Cookie。
     前端需要自动处理301重定向，否则可能得不到正确响应。
     如无特殊说明，请求为参数格式json，请求时需要设置Content-Type:application/json;charset=UTF-8
@@ -36,7 +36,7 @@
         Response
             "code":200
 
-# 账号
+# 一、账号
     公共url /api/account
 
 ## 注册
