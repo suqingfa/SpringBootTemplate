@@ -4,10 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class Image
+public class Image implements Serializable
 {
     @Id
     private String id;

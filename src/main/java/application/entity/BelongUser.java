@@ -1,6 +1,8 @@
 package application.entity;
 
-public interface BelongUser
+import java.io.Serializable;
+
+public interface BelongUser extends Serializable
 {
     User getUser();
 
