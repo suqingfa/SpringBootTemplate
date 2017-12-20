@@ -32,6 +32,7 @@ configurations {
 
 dependencies {
     compile(
+            'com.aliyun:aliyun-java-sdk-core:3.+',
             'org.postgresql:postgresql',
             'org.springframework.boot:spring-boot-configuration-processor',
             'org.springframework.boot:spring-boot-starter-data-jpa',

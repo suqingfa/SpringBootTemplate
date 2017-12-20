@@ -1,6 +1,6 @@
 package application;
 
-import application.config.properties.DemoProperties;
+import application.config.properties.SmsProperties;
 import application.entity.User;
 import application.repository.UserRepository;
 import application.scheduled.AsyncTask;
@@ -43,8 +43,8 @@ public class ApplicationTest
     @Test
     public void testProperties()
     {
-        DemoProperties properties = Application.getBean(DemoProperties.class);
-        log.info(properties.getKey());
+        SmsProperties properties = Application.getBean(SmsProperties.class);
+        log.info(properties.toString());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ApplicationTest
         User user = new User();
         user.setUsername("username");
         Example<User> userExample = Example.of(user);
-        
+
         user = userRepository.findOne(userExample);
         if (user != null)
         {
