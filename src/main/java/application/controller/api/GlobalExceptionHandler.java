@@ -1,11 +1,12 @@
 package application.controller.api;
 
 import application.model.Output;
-import application.model.OutputResult;
 import org.springframework.web.bind.annotation.*;
 
+import static application.model.Output.outputError;
+
 @ControllerAdvice(basePackageClasses = GlobalExceptionHandler.class)
-public class GlobalExceptionHandler implements OutputResult
+public class GlobalExceptionHandler
 {
     @ExceptionHandler(Exception.class)
     @ResponseBody

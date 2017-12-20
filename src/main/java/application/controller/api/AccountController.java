@@ -3,7 +3,6 @@ package application.controller.api;
 import application.Application;
 import application.entity.User;
 import application.model.Output;
-import application.model.OutputResult;
 import application.model.account.*;
 import application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,11 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Base64;
 
+import static application.model.Output.*;
+
 @RestController
 @RequestMapping("/api/account")
-public class AccountController implements OutputResult
+public class AccountController
 {
     @Autowired
     private AccountService accountService;

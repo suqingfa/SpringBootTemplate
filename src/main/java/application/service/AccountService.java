@@ -3,7 +3,6 @@ package application.service;
 import application.entity.File;
 import application.entity.User;
 import application.model.Output;
-import application.model.OutputResult;
 import application.model.account.*;
 import application.repository.FileRepository;
 import application.repository.UserRepository;
@@ -12,9 +11,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import static application.model.Output.*;
+
 @Service
 @Transactional
-public class AccountService implements OutputResult
+public class AccountService
 {
     @Resource
     private UserRepository userRepository;
@@ -42,7 +43,7 @@ public class AccountService implements OutputResult
     public Output<UserInfoOutput> getUserInfo(String id)
     {
         UserInfoOutput output = new UserInfoOutput().fromEntity(userRepository.findOne(id));
-        return output(output);
+        return outputOk(output);
     }
 
     public byte[] getUserAvatar(String UserId)
