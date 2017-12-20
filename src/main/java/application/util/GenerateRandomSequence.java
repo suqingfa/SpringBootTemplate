@@ -13,21 +13,24 @@ public class GenerateRandomSequence
     @Setter
     private int length = 6;
 
-    private String getRandom(int length, RandomSequenceType type)
+    @Setter
+    protected RandomSequenceType type = RandomSequenceType.NUMBER;
+
+    private String getRandomSequenceProcess()
     {
         StringBuilder stringBuilder = new StringBuilder(length);
         byte[] bytes = new byte[length];
         random.nextBytes(bytes);
         for (byte b : bytes)
         {
-            b &= 127;
-            stringBuilder.append(byteToChar(b, type));
+            stringBuilder.append(byteToChar(b));
         }
         return stringBuilder.toString();
     }
 
-    private char byteToChar(byte b, RandomSequenceType type)
+    protected char byteToChar(byte b)
     {
+        b &= 127;
         switch (type)
         {
             case NUMBER:
@@ -53,19 +56,9 @@ public class GenerateRandomSequence
         return (char) b;
     }
 
-    public String getRandomNumber()
+    public String getRandomSequence()
     {
-        return getRandom(length, RandomSequenceType.NUMBER);
-    }
-
-    public String getRandomUppercase()
-    {
-        return getRandom(length, RandomSequenceType.UPPERCASE);
-    }
-
-    public String getRandomUppercaseNumber()
-    {
-        return getRandom(length, RandomSequenceType.UPPERCASE_NUMBER);
+        return getRandomSequenceProcess();
     }
 
     enum RandomSequenceType

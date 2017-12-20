@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-import static application.model.Output.*;
+import static application.model.Output.outputOk;
+import static application.model.Output.outputUsernameExist;
 
 @Service
 @Transactional
@@ -40,7 +41,7 @@ public class AccountService
         return outputOk();
     }
 
-    public Output<UserInfoOutput> getUserInfo(String id)
+    public Output getUserInfo(String id)
     {
         UserInfoOutput output = new UserInfoOutput().fromEntity(userRepository.findOne(id));
         return outputOk(output);

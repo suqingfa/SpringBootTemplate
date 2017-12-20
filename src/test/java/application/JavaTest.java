@@ -15,7 +15,7 @@ public class JavaTest
         GenerateRandomSequence randomSequence = new GenerateRandomSequence();
         for (int i = 0; i < 100; i++)
         {
-            log.info(randomSequence.getRandomUppercaseNumber());
+            log.info(randomSequence.getRandomSequence());
         }
     }
 
