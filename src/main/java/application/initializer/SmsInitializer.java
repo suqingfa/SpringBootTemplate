@@ -1,6 +1,6 @@
 package application.initializer;
 
-import application.config.properties.SmsProperties;
+import application.config.properties.AliyunProperties;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.profile.DefaultProfile;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class SmsInitializer implements CommandLineRunner
 {
     @Autowired
-    private SmsProperties smsProperties;
+    private AliyunProperties aliyunProperties;
 
     @Override
     public void run(String... args) throws Exception
@@ -24,8 +24,8 @@ public class SmsInitializer implements CommandLineRunner
         String product = "Dysmsapi";
         String domain = "dysmsapi.aliyuncs.com";
 
-        String accessKeyId = smsProperties.getAccessKeyId();
-        String accessKeySecret = smsProperties.getAccessKeySecret();
+        String accessKeyId = aliyunProperties.getAccessKeyId();
+        String accessKeySecret = aliyunProperties.getAccessKeySecret();
 
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
         DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);

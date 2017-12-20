@@ -1,7 +1,7 @@
 package application.service;
 
 import application.Application;
-import application.config.properties.SmsProperties;
+import application.config.properties.AliyunProperties;
 import application.initializer.SmsInitializer;
 import application.model.Output;
 import application.model.common.SendSmsInput;
@@ -33,7 +33,7 @@ public class SmsService
     @Autowired
     private HttpSession session;
     @Autowired
-    private SmsProperties smsProperties;
+    private AliyunProperties aliyunProperties;
 
     public Output sendSms(SendSmsInput input) throws ClientException
     {
@@ -53,8 +53,8 @@ public class SmsService
 
         SendSmsRequest request = new SendSmsRequest();
         request.putQueryParameter("PhoneNumbers", phone);
-        request.putQueryParameter("SignName", smsProperties.getSignName());
-        request.putQueryParameter("TemplateCode", smsProperties.getTemplateCode());
+        request.putQueryParameter("SignName", aliyunProperties.getSms().getSignName());
+        request.putQueryParameter("TemplateCode", aliyunProperties.getSms().getTemplateCode());
         request.putQueryParameter("TemplateParam", "{\"code\":\"" + code + "\"}");
 
         SendSmsResponse response = SmsInitializer.getAcsClient().getAcsResponse(request);

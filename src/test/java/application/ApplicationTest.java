@@ -1,6 +1,6 @@
 package application;
 
-import application.config.properties.SmsProperties;
+import application.config.properties.AliyunProperties;
 import application.entity.User;
 import application.repository.UserRepository;
 import application.scheduled.AsyncTask;
@@ -43,7 +43,7 @@ public class ApplicationTest
     @Test
     public void testProperties()
     {
-        SmsProperties properties = Application.getBean(SmsProperties.class);
+        AliyunProperties properties = Application.getBean(AliyunProperties.class);
         log.info(properties.toString());
     }
 
