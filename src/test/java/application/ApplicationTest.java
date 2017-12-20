@@ -1,12 +1,15 @@
 package application;
 
 import application.config.properties.DemoProperties;
+import application.entity.User;
+import application.repository.UserRepository;
 import application.scheduled.AsyncTask;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -50,5 +53,21 @@ public class ApplicationTest
         AsyncTask task = Application.getBean(AsyncTask.class);
         Future<String> result = task.doTask();
         log.info(result.get());
+    }
+
+    @Test
+    public void testJapExample()
+    {
+        UserRepository userRepository = Application.getBean(UserRepository.class);
+
+        User user = new User();
+        user.setUsername("username");
+        Example<User> userExample = Example.of(user);
+        
+        user = userRepository.findOne(userExample);
+        if (user != null)
+        {
+            log.warn(user.toString());
+        }
     }
 }
