@@ -6,6 +6,7 @@ import application.initializer.SmsInitializer;
 import application.model.Output;
 import application.model.common.SendSmsInput;
 import application.util.GenerateRandomSequence;
+import application.util.SessionVerification;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.RpcAcsRequest;
 import com.aliyuncs.exceptions.ClientException;
@@ -17,9 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-
 import static application.model.Output.outputOk;
 import static application.model.Output.outputParameterError;
 
@@ -27,11 +25,8 @@ import static application.model.Output.outputParameterError;
 @Slf4j
 public class SmsService
 {
-    private static final String PHONE = "phone";
-    private static final String SMS_CODE = "smsCode";
-    private static final String SEND_TIME = "sendTime";
     @Autowired
-    private HttpSession session;
+    private SessionVerification verification;
     @Autowired
     private AliyunProperties aliyunProperties;
 
@@ -42,7 +37,7 @@ public class SmsService
         {
             return outputParameterError();
         }
-        setSmsSession(input.getPhone(), code);
+        verification.setSession(input.getPhone(), code);
         return outputOk();
     }
 
@@ -66,45 +61,6 @@ public class SmsService
 
         return code;
     }
-
-    private void setSmsSession(String mobile, String code)
-    {
-        if (session == null)
-            return;
-
-        session.setAttribute(PHONE, mobile);
-        session.setAttribute(SMS_CODE, code);
-        session.setAttribute(SEND_TIME, LocalDateTime.now());
-    }
-
-    public boolean verificationSmsSession(String phone, String code)
-    {
-        if (session == null)
-            return false;
-
-        boolean result = true;
-        if (phone == null || code == null || !phone.equals(session.getAttribute(PHONE)))
-            result = false;
-
-
-        Object sendTime = session.getAttribute(SEND_TIME);
-        // 验证码有效时间 300s
-        LocalDateTime effectiveTime = LocalDateTime.now().minusSeconds(300);
-        if (sendTime == null || effectiveTime.isAfter((LocalDateTime) sendTime))
-            result = false;
-
-
-        Object smsCode = session.getAttribute(SMS_CODE);
-        if (smsCode == null || !smsCode.equals(code))
-            result = false;
-
-        session.removeAttribute(SEND_TIME);
-        session.removeAttribute(SMS_CODE);
-        session.removeAttribute(PHONE);
-
-        return result;
-    }
-
 
     private static class SendSmsRequest extends RpcAcsRequest<SendSmsResponse>
     {
