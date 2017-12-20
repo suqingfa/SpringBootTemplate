@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-public class Image implements Serializable
+public class File implements Serializable
 {
     @Id
     private String id;
