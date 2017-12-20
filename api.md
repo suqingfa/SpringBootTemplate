@@ -43,8 +43,8 @@
     /register post
     Request
         {
-            "username":String,      //
-            "password":String       //
+            "username":String,
+            "password":String,
         }
     Response
         成功
@@ -78,7 +78,7 @@
     /updatePassword post
     Request
         {
-            "password":String       //
+            "password":String,
         }
     Response
         成功
@@ -89,7 +89,9 @@
 ## 设置用户头像
     /setUserAvatar post
     Request
-            file
+        {
+            "data":String,              // 图片base64编码
+        }
     Response
         成功时
         "code":0
@@ -110,6 +112,6 @@
         "code":201
         成功时
         "data":{
-            "id":String,            //
-            "username":String,      //
+            "id":String,
+            "username":String,
         }

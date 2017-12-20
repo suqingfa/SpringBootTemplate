@@ -4,8 +4,7 @@ import application.Application;
 import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
-import application.model.account.RegisterInput;
-import application.model.account.UpdatePasswordInput;
+import application.model.account.*;
 import application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,12 +15,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/account")
@@ -84,17 +83,18 @@ public class AccountController implements OutputResult
     }
 
     @PostMapping("setUserAvatar")
-    public Output setUserAvatar(@RequestParam("file") MultipartFile file) throws IOException
+    public Output setUserAvatar(@Valid @RequestBody SetUserAvatarInput input, Errors errors)
     {
-        if (file.isEmpty())
+        if (errors.hasErrors())
         {
             return outputParameterError();
         }
-        byte[] data = file.getBytes();
+
+        byte[] data = Base64.getDecoder().decode(input.getData());
         return accountService.setUserAvatar(data);
     }
 
-    protected void autoLogin(String username, String password)
+    private void autoLogin(String username, String password)
     {
         HttpServletRequest request = Application.getRequest();
         AuthenticationManager authenticationManager = Application.getBean(AuthenticationManager.class);

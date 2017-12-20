@@ -1,11 +1,11 @@
 package application.service;
 
-import application.entity.Image;
+import application.entity.File;
 import application.entity.User;
 import application.model.Output;
 import application.model.OutputResult;
 import application.model.account.*;
-import application.repository.ImageRepository;
+import application.repository.FileRepository;
 import application.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class AccountService implements OutputResult
     @Resource
     private UserRepository userRepository;
     @Resource
-    private ImageRepository imageRepository;
+    private FileRepository fileRepository;
 
     public Output register(RegisterInput input)
     {
@@ -47,20 +47,20 @@ public class AccountService implements OutputResult
 
     public byte[] getUserAvatar(String UserId)
     {
-        Image image = imageRepository.findOne("UserAvatar/" + UserId);
-        if (image == null)
+        File file = fileRepository.findOne("UserAvatar/" + UserId);
+        if (file == null)
         {
-            image = imageRepository.findOne("UserAvatar");
+            file = fileRepository.findOne("UserAvatar");
         }
-        return image.getData();
+        return file.getData();
     }
 
     public Output setUserAvatar(byte[] data)
     {
-        Image image = new Image();
-        image.setId("UserAvatar/" + User.getUserId());
-        image.setData(data);
-        imageRepository.save(image);
+        File file = new File();
+        file.setId("UserAvatar/" + User.getUserId());
+        file.setData(data);
+        fileRepository.save(file);
         return outputOk();
     }
 }
