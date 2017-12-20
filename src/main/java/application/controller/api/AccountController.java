@@ -35,6 +35,18 @@ public class AccountController implements OutputResult
         return outputNotLogin();
     }
 
+    @PostMapping("jsonLogin")
+    public Output jsonLogin(@Valid @RequestBody LoginInput input, Errors errors)
+    {
+        if (errors.hasErrors())
+        {
+            return outputParameterError();
+        }
+
+        autoLogin(input.getUsername(), input.getPassword());
+        return outputOk();
+    }
+
     @PostMapping("loginSuccess")
     public Output loginSuccess()
     {

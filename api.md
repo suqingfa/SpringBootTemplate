@@ -54,13 +54,28 @@
         参数错误
         "code":201
 
-## 登录
+## form登录
     /login post
     Content-Type:application/x-www-form-urlencoded
     Request
         username=
         password=
         remember-me=true|false  // 可选
+    Response
+        成功
+        "code":0
+        登录失败
+        "code":100
+        参数错误
+        "code":201
+
+## json登录
+    /updatePassword post
+    Request
+        {
+            "username":String,
+            "password":String,
+        }
     Response
         成功
         "code":0
