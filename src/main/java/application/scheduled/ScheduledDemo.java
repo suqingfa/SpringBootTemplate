@@ -12,6 +12,6 @@ public class ScheduledDemo
     public void executeScheduled()
     {
         Thread current = Thread.currentThread();
-        log.warn("ScheduledTest.executeFileDownLoadTask 定时任务1:" + current.getId() + ",name:" + current.getName());
+        log.info("ScheduledTest.executeFileDownLoadTask 定时任务1:" + current.getId() + ",name:" + current.getName());
     }
 }

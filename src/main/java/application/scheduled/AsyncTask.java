@@ -14,7 +14,7 @@ public class AsyncTask
     @Async
     public Future<String> doTask() throws InterruptedException
     {
-        log.warn("Task1 started.");
+        log.info("Task1 started.");
         Thread.sleep(1000);
         return new AsyncResult<>("Task1 accomplished!");
     }

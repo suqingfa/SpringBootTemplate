@@ -41,7 +41,7 @@ public class ApplicationTest
     public void testProperties()
     {
         DemoProperties properties = Application.getBean(DemoProperties.class);
-        log.warn(properties.getKey());
+        log.info(properties.getKey());
     }
 
     @Test
@@ -49,6 +49,6 @@ public class ApplicationTest
     {
         AsyncTask task = Application.getBean(AsyncTask.class);
         Future<String> result = task.doTask();
-        log.warn(result.get());
+        log.info(result.get());
     }
 }

@@ -15,7 +15,7 @@ public class JavaTest
         GenerateRandomSequence randomSequence = new GenerateRandomSequence();
         for (int i = 0; i < 100; i++)
         {
-            log.debug(randomSequence.getRandomUppercaseNumber());
+            log.info(randomSequence.getRandomUppercaseNumber());
         }
     }
 
@@ -25,6 +25,6 @@ public class JavaTest
         SpelExpressionParser parser = new SpelExpressionParser();
         SpelExpression expression = parser.parseRaw("'Hello World'.concat('!')");
         String message = expression.getValue(String.class);
-        log.warn(message);
+        log.info(message);
     }
 }
