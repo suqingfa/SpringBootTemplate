@@ -7,17 +7,17 @@ import lombok.Getter;
 public class Output<T>
 {
 	private int code;
-	private Code codeInfo;
+	private Info info;
 	private T data;
 
-	public Output(Code code, T data)
+	public Output(Info info, T data)
 	{
-		this.codeInfo = code;
-		this.code = code.getCode();
+		this.info = info;
+		this.code = info.getCode();
 		this.data = data;
 	}
 
-	public enum Code
+	public enum Info
 	{
 		OK(0),
         NotLogin(100),
@@ -29,7 +29,7 @@ public class Output<T>
 		@Getter
 		private final int code;
 
-		Code(int code)
+		Info(int code)
 		{
 			this.code = code;
 		}

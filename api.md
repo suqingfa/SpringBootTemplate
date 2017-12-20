@@ -2,26 +2,33 @@
     前端与后台使用Cookie保持会话，因此前端请求的时候需要携带相应Cookie, 请求响应时需要保存Cookie。
     前端需要自动处理301重定向，否则可能得不到正确响应。
     如无特殊说明，请求为参数格式json，请求时需要设置Content-Type:application/json;charset=UTF-8
-        响应格式为json
-        请求成功时，响应格式如下，在文档中简写为"code":0 或 "data":{...}
+    响应格式为json
+        请求成功时，响应格式如下，在文档中简写为"info":"OK" 或 "data":{...}
             响应不包含数据时
             {
                  "code":0,
-                 "codeInfo":"OK"
+                 "info":"OK"
             }
             响应包含数据时
             {
                  "code":0,
-                 "codeInfo":"OK",
+                 "info":"OK",
                  "data":{...}
             }
-        请求失败时，响应格式如下，在文档中简写为"code":xx
+        请求失败时，响应格式如下，在文档中简写为"info":"xxx"
             {
                 "code":xxx,
-                "codeInfo":"xxx"
+                "info":"xxx"
             }
+        响应可能分多种情况，例如:当参数错误时返回"info":"ParameterError",当未登录时返回"info":"NotLogin",当请求成功时返回"data"{...}
+            在文档中简写格式
+            Response
+                "info":"xx"
+                "info":"yy"
+                "info":"zz"
+                "data":{...}
 
-# code与codeInfo的对应关系如下
+# code与info的对应关系如下
         OK(0),                  // 请求成功
         NotLogin(100),          // 未登录
         UsernameExist(101),     // 用户名已被注册
@@ -31,10 +38,10 @@
 # 全局状态码
     未登录状态请求
         Response
-            "code":100
+            "info":"NotLogin"
     其它错误        
         Response
-            "code":200
+            "info":"Error"
 
 # 一、账号
     公共url /api/account
@@ -47,12 +54,9 @@
             "password":String,
         }
     Response
-        成功
-        "code":0
-        用户名已存在
-        "code":101
-        参数错误
-        "code":201
+        "info":"OK"
+        "info":"UsernameExist"
+        "info":"ParameterError"
 
 ## form登录
     /login post
@@ -62,12 +66,9 @@
         password=
         remember-me=true|false  // 可选
     Response
-        成功
-        "code":0
-        登录失败
-        "code":100
-        参数错误
-        "code":201
+        "info":"OK"
+        "info":"NotLogin"
+        "info":"ParameterError"
 
 ## json登录
     /updatePassword post
@@ -77,17 +78,14 @@
             "password":String,
         }
     Response
-        成功
-        "code":0
-        登录失败
-        "code":100
-        参数错误
-        "code":201
+        "info":"OK"
+        "info":"NotLogin"
+        "info":"ParameterError"
 
 ## 注销
     /logout post
     Response
-        "code":100
+        "info":"NotLogin"
 
 ## 修改密码
     /updatePassword post
@@ -96,10 +94,8 @@
             "password":String,
         }
     Response
-        成功
-        "code":0
-        参数错误
-        "code":201
+        "info":"OK"
+        "info":"ParameterError"
 
 ## 设置用户头像
     /setUserAvatar post
@@ -108,10 +104,8 @@
             "data":String,              // 图片base64编码
         }
     Response
-        成功时
-        "code":0
-        参数错误
-        "code":203
+        "info":"OK"
+        "info":"ParameterError"
 
 ## 获取用户头像
     /getUserAvatar get
@@ -123,9 +117,7 @@
     /getUserInfo get
     /getUserInfo/{id} get
     Response
-        参数错误
-        "code":201
-        成功时
+        "info":"ParameterError"
         "data":{
             "id":String,
             "username":String,

@@ -77,7 +77,7 @@ public class AccountController implements OutputResult
         if (errors.hasErrors())
             return outputParameterError();
         Output output = accountService.register(input);
-        if (output.getCodeInfo() == Output.Code.OK)
+        if (output.getInfo() == Output.Info.OK)
             autoLogin(input.getUsername(), input.getPassword());
         return output;
     }
