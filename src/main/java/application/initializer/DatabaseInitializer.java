@@ -2,14 +2,13 @@ package application.initializer;
 
 import application.entity.Authority;
 import application.repository.AuthorityRepository;
-import application.util.GetLogger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 @Component
-public class DatabaseInitializer implements CommandLineRunner, GetLogger
+public class DatabaseInitializer implements CommandLineRunner
 {
     @Resource
     private AuthorityRepository authorityRepository;

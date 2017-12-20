@@ -2,7 +2,7 @@ package application;
 
 import application.config.properties.DemoProperties;
 import application.scheduled.AsyncTask;
-import application.util.GetLogger;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,14 +14,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ApplicationTest implements GetLogger
+public class ApplicationTest
 {
     @Test
     public void test()
     {
-        getLogger().debug("test");
+        log.debug("test");
     }
 
     @Test
@@ -40,7 +41,7 @@ public class ApplicationTest implements GetLogger
     public void testProperties()
     {
         DemoProperties properties = Application.getBean(DemoProperties.class);
-        getLogger().warn(properties.getKey());
+        log.warn(properties.getKey());
     }
 
     @Test
@@ -48,6 +49,6 @@ public class ApplicationTest implements GetLogger
     {
         AsyncTask task = Application.getBean(AsyncTask.class);
         Future<String> result = task.doTask();
-        getLogger().warn(result.get());
+        log.warn(result.get());
     }
 }

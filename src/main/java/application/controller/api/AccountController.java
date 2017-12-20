@@ -7,7 +7,6 @@ import application.model.OutputResult;
 import application.model.account.RegisterInput;
 import application.model.account.UpdatePasswordInput;
 import application.service.AccountService;
-import application.util.GetLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +25,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/account")
-public class AccountController implements GetLogger, OutputResult
+public class AccountController implements OutputResult
 {
     @Autowired
     private AccountService accountService;

@@ -52,6 +52,7 @@ dependencies {
     )
 
     testCompile(
+            'org.projectlombok:lombok',
             'org.springframework.boot:spring-boot-starter-test',
             'org.springframework.security:spring-security-test',
             'com.squareup.retrofit2:converter-gson:2.+',
