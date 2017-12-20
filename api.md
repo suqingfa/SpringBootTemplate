@@ -71,7 +71,7 @@
         "info":"ParameterError"
 
 ## json登录
-    /updatePassword post
+    /jsonLogin post
     Request
         {
             "username":String,
