@@ -3,6 +3,7 @@ package application.model.account;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,5 +13,5 @@ import javax.validation.constraints.NotNull;
 public class SetUserAvatarInput
 {
     @NotNull
-    private String data;
+    private MultipartFile file;
 }

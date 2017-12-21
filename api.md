@@ -90,7 +90,7 @@
     /setUserAvatar post
     Request
         {
-            "data":String,              // 图片base64编码
+            "file":File,
         }
     Response
         "info":"OK"

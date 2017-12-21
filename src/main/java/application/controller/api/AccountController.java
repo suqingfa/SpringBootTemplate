@@ -18,7 +18,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Base64;
 
 import static application.model.Output.outputNotLogin;
 import static application.model.Output.outputOk;
@@ -80,9 +79,9 @@ public class AccountController
     }
 
     @PostMapping("setUserAvatar")
-    public Output setUserAvatar(@Valid SetUserAvatarInput input)
+    public Output setUserAvatar(@Valid SetUserAvatarInput input) throws IOException
     {
-        byte[] data = Base64.getDecoder().decode(input.getData());
+        byte[] data = input.getFile().getBytes();
         return accountService.setUserAvatar(data);
     }
 
