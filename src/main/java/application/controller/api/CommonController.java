@@ -25,7 +25,7 @@ public class CommonController
     private EmailService emailService;
 
     @PostMapping("sendSms")
-    public Output sendSms(@Valid @RequestBody SendSmsInput input, Errors errors) throws ClientException
+    public Output sendSms(@Valid SendSmsInput input, Errors errors) throws ClientException
     {
         if (errors.hasErrors())
             return outputParameterError();
@@ -34,7 +34,7 @@ public class CommonController
     }
 
     @PostMapping("sendEmail")
-    public Output sendEmail(@Valid @RequestBody SendEmailInput input, Errors errors) throws ClientException
+    public Output sendEmail(@Valid SendEmailInput input, Errors errors) throws ClientException
     {
         if (errors.hasErrors())
             return outputParameterError();

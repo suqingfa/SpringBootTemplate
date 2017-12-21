@@ -37,7 +37,7 @@ public class AccountController
     }
 
     @PostMapping("jsonLogin")
-    public Output jsonLogin(@Valid @RequestBody LoginInput input, Errors errors)
+    public Output jsonLogin(@Valid LoginInput input, Errors errors)
     {
         if (errors.hasErrors())
         {
@@ -55,7 +55,7 @@ public class AccountController
     }
 
     @PostMapping("updatePassword")
-    public Output updatePassword(@Valid @RequestBody UpdatePasswordInput input, Errors errors)
+    public Output updatePassword(@Valid UpdatePasswordInput input, Errors errors)
     {
         if (errors.hasErrors())
             return outputParameterError();
@@ -73,7 +73,7 @@ public class AccountController
     }
 
     @PostMapping("register")
-    public Output register(@Valid @RequestBody RegisterInput input, Errors errors)
+    public Output register(@Valid RegisterInput input, Errors errors)
     {
         if (errors.hasErrors())
             return outputParameterError();
@@ -96,7 +96,7 @@ public class AccountController
     }
 
     @PostMapping("setUserAvatar")
-    public Output setUserAvatar(@Valid @RequestBody SetUserAvatarInput input, Errors errors)
+    public Output setUserAvatar(@Valid SetUserAvatarInput input, Errors errors)
     {
         if (errors.hasErrors())
         {
