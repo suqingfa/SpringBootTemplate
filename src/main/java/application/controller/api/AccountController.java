@@ -1,7 +1,6 @@
 package application.controller.api;
 
 import application.Application;
-import application.entity.User;
 import application.model.Output;
 import application.model.account.*;
 import application.service.AccountService;
@@ -12,10 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -47,14 +47,10 @@ public class AccountController
         return accountService.updatePassword(input);
     }
 
-    @GetMapping({"getUserInfo", "getUserInfo/{id}"})
-    public Output getUserInfo(@PathVariable(value = "id", required = false) String id)
+    @GetMapping("getUserInfo")
+    public Output getUserInfo(@Validated UserIdInput input)
     {
-        if (id == null)
-        {
-            id = User.getUserId();
-        }
-        return accountService.getUserInfo(id);
+        return accountService.getUserInfo(input.getId());
     }
 
     @PostMapping("register")
@@ -66,14 +62,10 @@ public class AccountController
         return output;
     }
 
-    @GetMapping({"getUserAvatar", "getUserAvatar/{id}"})
-    public void getUserAvatar(@PathVariable(value = "id", required = false) String id, ServletResponse response) throws IOException
+    @GetMapping("getUserAvatar")
+    public void getUserAvatar(@Validated UserIdInput input, HttpServletResponse response) throws IOException
     {
-        if (id == null)
-        {
-            id = User.getUserId();
-        }
-        byte[] data = accountService.getUserAvatar(id);
+        byte[] data = accountService.getUserAvatar(input.getId());
         response.setContentType("image/png");
         response.getOutputStream().write(data);
     }

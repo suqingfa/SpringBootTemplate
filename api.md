@@ -97,13 +97,19 @@
 
 ## 获取用户头像
     /getUserAvatar get
-    /getUserAvatar/{id} get
+    Request
+        {
+            "id":String,        // 可选
+        }
     Response
         图片文件/默认头像
 
 ## 获取用户信息
     /getUserInfo get
-    /getUserInfo/{id} get
+    Request
+        {
+            "id":String,        // 可选
+        }
     Response
         "data":{
             "id":String,
