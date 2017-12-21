@@ -6,12 +6,12 @@ public interface BelongUser extends Serializable
 {
     User getUser();
 
-    default boolean isBelong()
+    default boolean isNotBelong()
     {
         String userId = User.getUserId();
         if (userId == null || getUser() == null)
-            return false;
+            return true;
 
-        return getUser().getId().equals(userId);
+        return !getUser().getId().equals(userId);
     }
 }
