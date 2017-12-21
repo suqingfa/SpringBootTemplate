@@ -60,7 +60,7 @@
         "info":"OK"
         "info":"UsernameExist"
 
-## form登录
+## 登录
     /login post
     Request
         {

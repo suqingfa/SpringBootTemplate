@@ -17,7 +17,7 @@ public class GlobalExceptionHandler
     @ResponseBody
     public Output parameterError(Exception e)
     {
-        log.info("参数错误 {}", e.getMessage());
+        log.info("参数错误 {}", e);
         return outputParameterError();
     }
 }
