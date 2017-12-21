@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +47,7 @@ public class AccountController
     }
 
     @GetMapping("getUserInfo")
-    public Output getUserInfo(@Validated UserIdInput input)
+    public Output getUserInfo(@Valid UserIdInput input)
     {
         return accountService.getUserInfo(input.getId());
     }
@@ -63,7 +62,7 @@ public class AccountController
     }
 
     @GetMapping("getUserAvatar")
-    public void getUserAvatar(@Validated UserIdInput input, HttpServletResponse response) throws IOException
+    public void getUserAvatar(@Valid UserIdInput input, HttpServletResponse response) throws IOException
     {
         byte[] data = accountService.getUserAvatar(input.getId());
         response.setContentType("image/png");
