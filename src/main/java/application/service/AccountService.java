@@ -1,10 +1,8 @@
 package application.service;
 
-import application.entity.File;
 import application.entity.User;
 import application.model.Output;
 import application.model.account.*;
-import application.repository.FileRepository;
 import application.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,7 @@ public class AccountService
     @Resource
     private UserRepository userRepository;
     @Resource
-    private FileRepository fileRepository;
+    private FileManager fileManager;
 
     public Output register(RegisterInput input)
     {
@@ -49,20 +47,17 @@ public class AccountService
 
     public byte[] getUserAvatar(String UserId)
     {
-        File file = fileRepository.findOne("UserAvatar/" + UserId);
-        if (file == null)
+        byte[] result = fileManager.findOne("UserAvatar/" + UserId);
+        if (result == null)
         {
-            file = fileRepository.findOne("UserAvatar");
+            fileManager.findOne("UserAvatar");
         }
-        return file.getData();
+        return result;
     }
 
     public Output setUserAvatar(byte[] data)
     {
-        File file = new File();
-        file.setId("UserAvatar/" + User.getUserId());
-        file.setData(data);
-        fileRepository.save(file);
+        fileManager.save("UserAvatar/" + User.getUserId(), data);
         return outputOk();
     }
 }
