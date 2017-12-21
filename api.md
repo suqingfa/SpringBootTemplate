@@ -39,6 +39,9 @@
     未登录状态请求
         Response
             "info":"NotLogin"
+    请求参数格式不对
+        Response
+            "info":"ParameterError"
     其它错误        
         Response
             "info":"Error"
@@ -56,31 +59,18 @@
     Response
         "info":"OK"
         "info":"UsernameExist"
-        "info":"ParameterError"
 
 ## form登录
     /login post
-    Content-Type:application/x-www-form-urlencoded
-    Request
-        username=
-        password=
-        remember-me=true|false  // 可选
-    Response
-        "info":"OK"
-        "info":"NotLogin"
-        "info":"ParameterError"
-
-## json登录
-    /jsonLogin post
     Request
         {
-            "username":String,
-            "password":String,
+            "username":String
+            "password":String
+            "remember-me":boolean               // 可选
         }
     Response
         "info":"OK"
         "info":"NotLogin"
-        "info":"ParameterError"
 
 ## 注销
     /logout post
@@ -95,7 +85,6 @@
         }
     Response
         "info":"OK"
-        "info":"ParameterError"
 
 ## 设置用户头像
     /setUserAvatar post
@@ -105,7 +94,6 @@
         }
     Response
         "info":"OK"
-        "info":"ParameterError"
 
 ## 获取用户头像
     /getUserAvatar get
@@ -117,7 +105,6 @@
     /getUserInfo get
     /getUserInfo/{id} get
     Response
-        "info":"ParameterError"
         "data":{
             "id":String,
             "username":String,

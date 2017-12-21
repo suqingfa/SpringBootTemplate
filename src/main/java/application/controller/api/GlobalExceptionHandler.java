@@ -2,19 +2,22 @@ package application.controller.api;
 
 import application.model.Output;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.*;
 
-import static application.model.Output.outputError;
+import javax.validation.UnexpectedTypeException;
+
+import static application.model.Output.outputParameterError;
 
 @ControllerAdvice(basePackageClasses = GlobalExceptionHandler.class)
 @Slf4j
 public class GlobalExceptionHandler
 {
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler({BindException.class, UnexpectedTypeException.class})
     @ResponseBody
-    public Output jsonErrorHandler(Exception e)
+    public Output parameterError(Exception e)
     {
-        log.warn("错误", e);
-        return outputError();
+        log.info("参数错误 {}", e.getMessage());
+        return outputParameterError();
     }
 }

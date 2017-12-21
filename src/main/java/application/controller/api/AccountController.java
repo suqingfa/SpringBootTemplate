@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletResponse;
@@ -21,7 +20,8 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Base64;
 
-import static application.model.Output.*;
+import static application.model.Output.outputNotLogin;
+import static application.model.Output.outputOk;
 
 @RestController
 @RequestMapping("/api/account")
@@ -36,18 +36,6 @@ public class AccountController
         return outputNotLogin();
     }
 
-    @PostMapping("jsonLogin")
-    public Output jsonLogin(@Valid LoginInput input, Errors errors)
-    {
-        if (errors.hasErrors())
-        {
-            return outputParameterError();
-        }
-
-        autoLogin(input.getUsername(), input.getPassword());
-        return outputOk();
-    }
-
     @PostMapping("loginSuccess")
     public Output loginSuccess()
     {
@@ -55,10 +43,8 @@ public class AccountController
     }
 
     @PostMapping("updatePassword")
-    public Output updatePassword(@Valid UpdatePasswordInput input, Errors errors)
+    public Output updatePassword(@Valid UpdatePasswordInput input)
     {
-        if (errors.hasErrors())
-            return outputParameterError();
         return accountService.updatePassword(input);
     }
 
@@ -73,10 +59,8 @@ public class AccountController
     }
 
     @PostMapping("register")
-    public Output register(@Valid RegisterInput input, Errors errors)
+    public Output register(@Valid RegisterInput input)
     {
-        if (errors.hasErrors())
-            return outputParameterError();
         Output output = accountService.register(input);
         if (output.getInfo() == Output.Info.OK)
             autoLogin(input.getUsername(), input.getPassword());
@@ -96,13 +80,8 @@ public class AccountController
     }
 
     @PostMapping("setUserAvatar")
-    public Output setUserAvatar(@Valid SetUserAvatarInput input, Errors errors)
+    public Output setUserAvatar(@Valid SetUserAvatarInput input)
     {
-        if (errors.hasErrors())
-        {
-            return outputParameterError();
-        }
-
         byte[] data = Base64.getDecoder().decode(input.getData());
         return accountService.setUserAvatar(data);
     }
