@@ -7,17 +7,23 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.UnexpectedTypeException;
 
+import static application.model.Output.outputError;
 import static application.model.Output.outputParameterError;
 
 @ControllerAdvice(basePackageClasses = GlobalExceptionHandler.class)
 @Slf4j
 public class GlobalExceptionHandler
 {
-    @ExceptionHandler({BindException.class, UnexpectedTypeException.class})
+    @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Output parameterError(Exception e)
+    public Output Exception(Exception e)
     {
-        log.info("参数错误 {}", e);
-        return outputParameterError();
+        if (e instanceof BindException || e instanceof UnexpectedTypeException)
+        {
+            log.info("参数错误 {}", e);
+            return outputParameterError();
+        }
+
+        return outputError();
     }
 }
