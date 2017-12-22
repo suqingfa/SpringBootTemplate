@@ -1,23 +1,15 @@
 package application.model;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class ModelFromEntityList<F> extends ModelFromEntity<F>
 {
     public List<ModelFromEntity<F>> fromEntityList(Collection<F> collection)
     {
-        Class<? extends ModelFromEntity> tClass = getClass();
-        List<ModelFromEntity<F>> output = new ArrayList<>();
-        try
-        {
-            for (F f : collection)
-            {
-                output.add(tClass.newInstance().fromEntity(f));
-            }
-        }
-        catch (ReflectiveOperationException e)
-        {
-        }
-        return output;
+        return collection.stream()
+                .map(this::fromEntity)
+                .collect(Collectors.toList());
     }
 }
