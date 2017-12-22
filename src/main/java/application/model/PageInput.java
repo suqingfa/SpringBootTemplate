@@ -17,9 +17,19 @@ public class PageInput
     @Max(20)
     private int size = 10;
 
+    public Pageable getPageableSort(String property)
+    {
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, property);
+        return new PageRequest(page, size, new Sort(order));
+    }
+
+    public Pageable getPageable()
+    {
+        return new PageRequest(page, size);
+    }
+
     public Pageable getPageableSortByTime()
     {
-        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "time");
-        return new PageRequest(page, size, new Sort(order));
+        return getPageableSort("time");
     }
 }
