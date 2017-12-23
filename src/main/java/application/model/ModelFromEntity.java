@@ -1,6 +1,6 @@
 package application.model;
 
-public abstract class ModelFromEntity<F>
+public interface ModelFromEntity<F>
 {
-    public abstract ModelFromEntity<F> fromEntity(F f);
+    ModelFromEntity<F> fromEntity(F f);
 }

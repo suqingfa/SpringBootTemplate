@@ -1,15 +1,26 @@
 package application.model;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public abstract class ModelFromEntityList<F> extends ModelFromEntity<F>
+public interface ModelFromEntityList<F> extends ModelFromEntity<F>
 {
-    public List<ModelFromEntity<F>> fromEntityList(Collection<F> collection)
+    default List<ModelFromEntity<F>> fromEntityList(List<F> list)
     {
-        return collection.stream()
-                .map(this::fromEntity)
-                .collect(Collectors.toList());
+        Function<F, ModelFromEntity<F>> function = (f) ->
+        {
+            try
+            {
+                Class<? extends ModelFromEntity> thisClass = getClass();
+                ModelFromEntity inst = thisClass.newInstance();
+                return inst.fromEntity(f);
+            }
+            catch (Exception ignored)
+            {
+            }
+            return null;
+        };
+        return list.stream().map(function).collect(Collectors.toList());
     }
 }

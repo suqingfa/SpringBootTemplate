@@ -1,6 +1,6 @@
 package application.model;
 
-public abstract class ModelUpdateEntity<E>
+public interface ModelUpdateEntity<E>
 {
-    public abstract void update(E e);
+    void update(E e);
 }

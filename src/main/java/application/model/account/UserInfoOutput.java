@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserInfoOutput extends ModelFromEntity<User>
+public class UserInfoOutput implements ModelFromEntity<User>
 {
     private String id;
     private String username;

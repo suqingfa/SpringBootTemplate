@@ -18,7 +18,7 @@ import java.util.HashSet;
 @Getter
 @Setter
 @Validated
-public class RegisterInput extends ModelToEntity<User>
+public class RegisterInput implements ModelToEntity<User>
 {
     @NotNull
     @Length(min = 4)
