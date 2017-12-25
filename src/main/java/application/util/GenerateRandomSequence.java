@@ -9,12 +9,10 @@ import java.security.SecureRandom;
 public class GenerateRandomSequence
 {
     private static final SecureRandom random = new SecureRandom();
-
-    @Setter
-    private int length = 6;
-
     @Setter
     protected RandomSequenceType type = RandomSequenceType.NUMBER;
+    @Setter
+    private int length = 6;
 
     private String getRandomSequenceProcess()
     {

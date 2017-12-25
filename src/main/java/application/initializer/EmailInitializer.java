@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailInitializer implements CommandLineRunner
 {
+    @Getter
+    private static IAcsClient acsClient;
     @Autowired
     private AliyunProperties aliyunProperties;
 
@@ -26,7 +28,4 @@ public class EmailInitializer implements CommandLineRunner
 
         acsClient = new DefaultAcsClient(profile);
     }
-
-    @Getter
-    private static IAcsClient acsClient;
 }

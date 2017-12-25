@@ -9,9 +9,7 @@ public interface BelongUser extends Serializable
     default boolean isNotBelong()
     {
         String userId = User.getUserId();
-        if (userId == null || getUser() == null)
-            return true;
+        return userId == null || getUser() == null || !getUser().getId().equals(userId);
 
-        return !getUser().getId().equals(userId);
     }
 }

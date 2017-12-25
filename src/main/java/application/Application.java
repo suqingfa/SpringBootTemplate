@@ -15,23 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer implements ApplicationContextAware
 {
+    private static ApplicationContext context;
+
     public static void main(String[] args)
     {
         SpringApplication.run(Application.class, args);
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
-    {
-        return application.sources(getClass());
-    }
-
-    private static ApplicationContext context;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
-    {
-        context = applicationContext;
     }
 
     public static <T> T getBean(Class<T> requiredType)
@@ -43,5 +31,17 @@ public class Application extends SpringBootServletInitializer implements Applica
     {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return servletRequestAttributes.getRequest();
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
+    {
+        return application.sources(getClass());
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
+    {
+        context = applicationContext;
     }
 }

@@ -10,24 +10,6 @@ public class Output<T>
     private Info info;
     private T data;
 
-    public enum Info
-    {
-        OK(0),
-        NotLogin(100),
-        UsernameExist(101),
-        Error(200),
-        ParameterError(201),
-        ;
-
-        @Getter
-        private final int code;
-
-        Info(int code)
-        {
-            this.code = code;
-        }
-    }
-
     private Output(Info info, T data)
     {
         this.info = info;
@@ -68,5 +50,22 @@ public class Output<T>
     public static Output outputParameterError()
     {
         return output(Output.Info.ParameterError);
+    }
+
+    public enum Info
+    {
+        OK(0),
+        NotLogin(100),
+        UsernameExist(101),
+        Error(200),
+        ParameterError(201),;
+
+        @Getter
+        private final int code;
+
+        Info(int code)
+        {
+            this.code = code;
+        }
     }
 }
