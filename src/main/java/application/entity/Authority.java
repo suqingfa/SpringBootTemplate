@@ -1,11 +1,9 @@
 package application.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity
@@ -13,10 +11,6 @@ import java.util.Set;
 public class Authority implements GrantedAuthority
 {
     @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    @GeneratedValue(generator = "uuid")
-    private String id;
-
     @Column(unique = true)
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -26,9 +20,6 @@ public class Authority implements GrantedAuthority
     {
         return role.name();
     }
-
-    @ManyToMany
-    private transient Set<User> users;
 
     public enum Role
     {

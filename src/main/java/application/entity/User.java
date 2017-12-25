@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Entity
@@ -38,7 +38,7 @@ public class User implements UserDetails
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
-    private Set<Authority> authorities;
+    private List<Authority> authorities;
 
     public static String getUserId()
     {
@@ -52,8 +52,8 @@ public class User implements UserDetails
     public static User getUser()
     {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof User))
-            return null;
-        return (User) principal;
+        if (principal instanceof User)
+            return (User) principal;
+        return null;
     }
 }

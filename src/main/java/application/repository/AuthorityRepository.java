@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 @CacheConfig(cacheNames = "Authority")
 public interface AuthorityRepository extends JpaRepository<Authority, String>
 {
-    boolean existsByRole(Authority.Role role);
-
     @Cacheable
     Authority findByRole(Authority.Role role);
 
