@@ -10,7 +10,7 @@ public class GenerateRandomSequence
 {
     private static final SecureRandom random = new SecureRandom();
     @Setter
-    protected RandomSequenceType type = RandomSequenceType.NUMBER;
+    protected Type type = Type.NUMBER;
     @Setter
     private int length = 6;
 
@@ -59,7 +59,7 @@ public class GenerateRandomSequence
         return getRandomSequenceProcess();
     }
 
-    enum RandomSequenceType
+    public enum Type
     {
         NUMBER,
         UPPERCASE,
