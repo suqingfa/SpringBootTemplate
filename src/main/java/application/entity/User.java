@@ -44,16 +44,22 @@ public class User implements UserDetails
     {
         User user = getUser();
         if (user == null)
+        {
             return null;
+        }
 
         return user.getId();
     }
 
     public static User getUser()
     {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         if (principal instanceof User)
+        {
             return (User) principal;
+        }
         return null;
     }
 }

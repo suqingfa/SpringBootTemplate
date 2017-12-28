@@ -62,7 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             @Override
             public SecurityExpressionRoot getRootObject()
             {
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                Authentication authentication = SecurityContextHolder.getContext()
+                        .getAuthentication();
                 return new SecurityExpressionRoot(authentication)
                 {
                 };
@@ -91,11 +92,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.csrf().disable();
+        http.csrf()
+                .disable();
 
         http.authorizeRequests()
-                .antMatchers("/api/common/**", "/api/account/login", "/api/account/register").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/api/common/**", "/api/account/login", "/api/account/register")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
 
         http.formLogin()
                 .loginPage("/api/account/login")

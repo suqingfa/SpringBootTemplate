@@ -24,7 +24,9 @@ public class AccountService
     public Output register(RegisterInput input)
     {
         if (userRepository.existsByUsername(input.getUsername()))
+        {
             return outputUsernameExist();
+        }
 
         userRepository.save(input.toEntity());
 

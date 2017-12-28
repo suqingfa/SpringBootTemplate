@@ -48,12 +48,16 @@ public class SmsService
 
         SendSmsRequest request = new SendSmsRequest();
         request.putQueryParameter("PhoneNumbers", phone);
-        request.putQueryParameter("SignName", aliyunProperties.getSms().getSignName());
-        request.putQueryParameter("TemplateCode", aliyunProperties.getSms().getTemplateCode());
+        request.putQueryParameter("SignName", aliyunProperties.getSms()
+                .getSignName());
+        request.putQueryParameter("TemplateCode", aliyunProperties.getSms()
+                .getTemplateCode());
         request.putQueryParameter("TemplateParam", "{\"code\":\"" + code + "\"}");
 
-        SendSmsResponse response = SmsInitializer.getAcsClient().getAcsResponse(request);
-        if (response.getCode() == null || !response.getCode().equals("OK"))
+        SendSmsResponse response = SmsInitializer.getAcsClient()
+                .getAcsResponse(request);
+        if (response.getCode() == null || !response.getCode()
+                .equals("OK"))
         {
             log.warn("发送验证码失败！手机号:{} 信息:{}", phone, response.getMessage());
             return null;

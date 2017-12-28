@@ -26,7 +26,9 @@ public class AccountTests extends ApiTests
     @Test
     public void updatePassword() throws IOException
     {
-        Output output = accountApi.updatePassword("password").execute().body();
+        Output output = accountApi.updatePassword("password")
+                .execute()
+                .body();
         assertEquals(output.getInfo(), Output.Info.OK);
         log.info(output.toString());
     }
@@ -38,7 +40,9 @@ public class AccountTests extends ApiTests
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
-        Output output = accountApi.setUserAvatar(body).execute().body();
+        Output output = accountApi.setUserAvatar(body)
+                .execute()
+                .body();
         assertEquals(output.getInfo(), Output.Info.OK);
         log.info(output.toString());
     }
@@ -46,7 +50,9 @@ public class AccountTests extends ApiTests
     @Test
     public void getUserAvatar() throws IOException
     {
-        ResponseBody body = accountApi.getUserAvatar().execute().body();
+        ResponseBody body = accountApi.getUserAvatar()
+                .execute()
+                .body();
         assertNotNull(body);
         log.info("length: {}", body.contentLength());
     }
@@ -54,7 +60,9 @@ public class AccountTests extends ApiTests
     @Test
     public void getUserInfo() throws IOException
     {
-        Output output = accountApi.getUserInfo().execute().body();
+        Output output = accountApi.getUserInfo()
+                .execute()
+                .body();
         assertEquals(output.getInfo(), Output.Info.OK);
         log.info(output.toString());
     }

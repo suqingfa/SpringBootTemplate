@@ -57,7 +57,9 @@ public class AccountController
     {
         Output output = accountService.register(input);
         if (output.getInfo() == Output.Info.OK)
+        {
             autoLogin(input.getUsername(), input.getPassword());
+        }
         return output;
     }
 
@@ -66,13 +68,15 @@ public class AccountController
     {
         byte[] data = accountService.getUserAvatar(input.getId());
         response.setContentType("image/png");
-        response.getOutputStream().write(data);
+        response.getOutputStream()
+                .write(data);
     }
 
     @PostMapping("setUserAvatar")
     public Output setUserAvatar(@Valid SetUserAvatarInput input) throws IOException
     {
-        byte[] data = input.getFile().getBytes();
+        byte[] data = input.getFile()
+                .getBytes();
         return accountService.setUserAvatar(data);
     }
 
@@ -83,7 +87,9 @@ public class AccountController
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         token.setDetails(new WebAuthenticationDetails(request));
         Authentication authenticatedUser = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-        request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+        SecurityContextHolder.getContext()
+                .setAuthentication(authenticatedUser);
+        request.getSession()
+                .setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
     }
 }

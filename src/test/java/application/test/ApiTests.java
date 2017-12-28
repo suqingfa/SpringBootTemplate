@@ -43,14 +43,20 @@ public class ApiTests
         String username = "username";
         String password = "password";
 
-        Output output = accountApi.login(username, password, true).execute().body();
+        Output output = accountApi.login(username, password, true)
+                .execute()
+                .body();
         if (output.getInfo() != Output.Info.OK)
         {
-            output = accountApi.register(username, password).execute().body();
+            output = accountApi.register(username, password)
+                    .execute()
+                    .body();
             assertEquals(output.getInfo(), Output.Info.OK);
             log.info("register username:{}", username);
 
-            output = accountApi.login(username, password, true).execute().body();
+            output = accountApi.login(username, password, true)
+                    .execute()
+                    .body();
         }
 
         assertEquals(output.getInfo(), Output.Info.OK);

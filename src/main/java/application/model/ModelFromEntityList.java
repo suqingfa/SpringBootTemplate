@@ -21,6 +21,8 @@ public interface ModelFromEntityList<F> extends ModelFromEntity<F>
             }
             return null;
         };
-        return list.stream().map(function).collect(Collectors.toList());
+        return list.stream()
+                .map(function)
+                .collect(Collectors.toList());
     }
 }

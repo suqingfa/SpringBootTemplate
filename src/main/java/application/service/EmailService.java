@@ -24,16 +24,20 @@ public class EmailService
     public void send(SendEmailInput input, String subject, String htmlBody) throws ClientException
     {
         SendRequest request = new SendRequest();
-        request.putQueryParameter("AccountName", aliyunProperties.getEmail().getAccountName());
-        request.putQueryParameter("FromAlias", aliyunProperties.getEmail().getFromAlias());
+        request.putQueryParameter("AccountName", aliyunProperties.getEmail()
+                .getAccountName());
+        request.putQueryParameter("FromAlias", aliyunProperties.getEmail()
+                .getFromAlias());
         request.putQueryParameter("AddressType", 1);
-        request.putQueryParameter("TagName", aliyunProperties.getEmail().getTagName());
+        request.putQueryParameter("TagName", aliyunProperties.getEmail()
+                .getTagName());
         request.putQueryParameter("ReplyToAddress", true);
         request.putQueryParameter("ToAddress", input.getEmail());
         request.putQueryParameter("Subject", subject);
         request.putQueryParameter("HtmlBody", htmlBody);
 
-        SendResponse response = SmsInitializer.getAcsClient().getAcsResponse(request);
+        SendResponse response = SmsInitializer.getAcsClient()
+                .getAcsResponse(request);
     }
 
     private static class SendRequest extends RpcAcsRequest<SendResponse>

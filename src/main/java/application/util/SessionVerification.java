@@ -8,7 +8,6 @@ import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Component
@@ -39,16 +38,23 @@ public class SessionVerification
         do
         {
             if (!key.equals(session.getAttribute(type)))
+            {
                 break;
+            }
 
             Object setTime = session.getAttribute(type + "_time");
-            LocalDateTime effectiveTime = LocalDateTime.now().minusSeconds(time);
+            LocalDateTime effectiveTime = LocalDateTime.now()
+                    .minusSeconds(time);
             if (setTime == null || effectiveTime.isAfter((LocalDateTime) setTime))
+            {
                 break;
+            }
 
             Object sessionCode = session.getAttribute(type + "_code");
             if (sessionCode == null || !sessionCode.equals(code))
+            {
                 break;
+            }
 
             result = true;
         }
@@ -71,7 +77,9 @@ public class SessionVerification
         {
             HttpServletRequest request = Application.getRequest();
             if (request != null)
+            {
                 session = request.getSession();
+            }
         }
 
         Assert.notNull(session, "HttpSession cannot be null");

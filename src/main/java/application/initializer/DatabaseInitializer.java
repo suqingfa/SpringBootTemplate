@@ -20,7 +20,9 @@ public class DatabaseInitializer implements CommandLineRunner
         for (Authority.Role role : roleClass.getEnumConstants())
         {
             if (authorityRepository.findByRole(role) != null)
+            {
                 continue;
+            }
             Authority authority = new Authority();
             authority.setRole(role);
             authorityRepository.save(authority);
