@@ -6,13 +6,14 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "Users")
-public class User implements UserDetails
+public class User implements UserDetails, Serializable
 {
     @Id
     @GenericGenerator(name = "uuid", strategy = "uuid")

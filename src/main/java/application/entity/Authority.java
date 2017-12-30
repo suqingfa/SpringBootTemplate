@@ -4,11 +4,12 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "Authorities")
-public class Authority implements GrantedAuthority
+public class Authority implements GrantedAuthority, Serializable
 {
     @Id
     @Column(unique = true)
