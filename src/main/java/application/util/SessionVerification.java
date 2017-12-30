@@ -4,7 +4,6 @@ import application.Context;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -71,7 +70,7 @@ public class SessionVerification
     {
         Objects.requireNonNull(key, "key cannot be null");
         Objects.requireNonNull(code, "code cannot be null");
-        Assert.isTrue(!key.isEmpty() && !code.isEmpty(), "key or code cannot be empty");
+        Objects.requireNonNull(!key.isEmpty() && !code.isEmpty(), "key or code cannot be empty");
 
         if (session == null)
         {
