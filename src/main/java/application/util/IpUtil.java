@@ -1,6 +1,6 @@
 package application.util;
 
-import application.Context;
+import application.ContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -40,7 +40,7 @@ public final class IpUtil
 
     public static Optional<String> getClientIp()
     {
-        return Context.getHttpServletRequest()
+        return ContextHolder.getHttpServletRequest()
                 .map(IpUtil::getClientIp);
     }
 }

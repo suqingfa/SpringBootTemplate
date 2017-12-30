@@ -1,6 +1,6 @@
 package application.model.account;
 
-import application.Context;
+import application.ContextHolder;
 import application.entity.Authority;
 import application.entity.User;
 import application.model.ModelToEntity;
@@ -29,7 +29,7 @@ public class RegisterInput implements ModelToEntity<User>
     @Override
     public User toEntity()
     {
-        PasswordEncoder passwordEncoder = Context.getBean(PasswordEncoder.class);
+        PasswordEncoder passwordEncoder = ContextHolder.getBean(PasswordEncoder.class);
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));

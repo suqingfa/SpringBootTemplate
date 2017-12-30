@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Component
-public final class Context implements ApplicationContextAware
+public final class ContextHolder implements ApplicationContextAware
 {
     private static ApplicationContext context;
 

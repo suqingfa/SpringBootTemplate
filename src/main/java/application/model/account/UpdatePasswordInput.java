@@ -1,6 +1,6 @@
 package application.model.account;
 
-import application.Context;
+import application.ContextHolder;
 import application.entity.User;
 import application.model.ModelUpdateEntity;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class UpdatePasswordInput implements ModelUpdateEntity<User>
     @Override
     public void update(User user)
     {
-        PasswordEncoder passwordEncoder = Context.getBean(PasswordEncoder.class);
+        PasswordEncoder passwordEncoder = ContextHolder.getBean(PasswordEncoder.class);
         user.setPassword(passwordEncoder.encode(password));
     }
 }

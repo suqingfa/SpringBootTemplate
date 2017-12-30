@@ -1,6 +1,6 @@
 package application.entity;
 
-import application.Context;
+import application.ContextHolder;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ public interface BelongUser extends Serializable
 
     default boolean isNotBelong()
     {
-        return Context.getUserId()
+        return ContextHolder.getUserId()
                 .map(x -> x.equals(getUser().getId()))
                 .orElse(false);
     }

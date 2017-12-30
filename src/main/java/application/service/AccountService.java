@@ -1,6 +1,6 @@
 package application.service;
 
-import application.Context;
+import application.ContextHolder;
 import application.entity.User;
 import application.model.Output;
 import application.model.account.*;
@@ -60,7 +60,7 @@ public class AccountService
 
     public Output setUserAvatar(byte[] data)
     {
-        fileManager.save("UserAvatar/" + Context.getUserId(), data);
+        fileManager.save("UserAvatar/" + ContextHolder.getUserId(), data);
         return outputOk();
     }
 }

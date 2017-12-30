@@ -1,6 +1,6 @@
 package application.util;
 
-import application.Context;
+import application.ContextHolder;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -73,7 +73,7 @@ public class HttpSessionVerification
 
         if (session == null)
         {
-            Context.getHttpSession()
+            ContextHolder.getHttpSession()
                     .ifPresent(httpSession -> session = httpSession);
         }
 
