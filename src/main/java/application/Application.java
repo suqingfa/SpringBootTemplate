@@ -13,6 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer implements ApplicationContextAware
@@ -45,6 +46,17 @@ public class Application extends SpringBootServletInitializer implements Applica
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
     {
         context = applicationContext;
+    }
+
+    public static HttpSession getSession()
+    {
+        HttpServletRequest request = getRequest();
+        if (request == null)
+        {
+            return null;
+        }
+
+        return request.getSession();
     }
 
     public static String getUserId()

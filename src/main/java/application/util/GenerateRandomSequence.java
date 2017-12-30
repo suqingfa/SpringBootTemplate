@@ -1,11 +1,9 @@
 package application.util;
 
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
 
-@Component
 public class GenerateRandomSequence
 {
     public static final int TYPE_NUMBER = 0;
@@ -19,7 +17,7 @@ public class GenerateRandomSequence
     @Setter
     private int length = 6;
 
-    protected char byteToChar(byte b)
+    protected char randomByteToRandomChar(byte b)
     {
         b &= 127;
         switch (type)
@@ -54,7 +52,7 @@ public class GenerateRandomSequence
         random.nextBytes(bytes);
         for (byte b : bytes)
         {
-            stringBuilder.append(byteToChar(b));
+            stringBuilder.append(randomByteToRandomChar(b));
         }
         return stringBuilder.toString();
     }

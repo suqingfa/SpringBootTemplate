@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Component
 public class SessionVerification
@@ -69,19 +69,15 @@ public class SessionVerification
 
     private void check(String key, String code)
     {
-        Assert.notNull(key, "key cannot be null");
-        Assert.notNull(code, "code cannot be null");
-        Assert.isTrue(!key.isEmpty() && !code.isEmpty(), "key || code cannot be empty");
+        Objects.requireNonNull(key, "key cannot be null");
+        Objects.requireNonNull(code, "code cannot be null");
+        Assert.isTrue(!key.isEmpty() && !code.isEmpty(), "key or code cannot be empty");
 
         if (session == null)
         {
-            HttpServletRequest request = Application.getRequest();
-            if (request != null)
-            {
-                session = request.getSession();
-            }
+            session = Application.getSession();
         }
 
-        Assert.notNull(session, "HttpSession cannot be null");
+        Objects.requireNonNull(session, "HttpSession cannot be null");
     }
 }

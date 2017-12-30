@@ -3,16 +3,18 @@ package application.util;
 import application.Application;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 public class IpUtil
 {
-    public static String getIp()
+    private IpUtil()
     {
-        HttpServletRequest request = Application.getRequest();
-        if (request == null)
-        {
-            return "127.0.0.1";
-        }
+    }
+
+    public static String getClientIp(HttpServletRequest request)
+    {
+        Objects.requireNonNull(request, "request cannot be nul");
+
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
         {
@@ -33,5 +35,10 @@ public class IpUtil
         }
 
         return ip;
+    }
+
+    public static String getClientIp()
+    {
+        return getClientIp(Application.getRequest());
     }
 }
