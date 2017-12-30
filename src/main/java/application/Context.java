@@ -35,14 +35,12 @@ public final class Context implements ApplicationContextAware
         RequestAttributes attributes = RequestContextHolder.currentRequestAttributes();
         return Optional.ofNullable(attributes)
                 .filter(x -> x instanceof ServletRequestAttributes)
-                .map(
-                        x -> ((ServletRequestAttributes) x).getRequest()
-                );
+                .map(x -> ((ServletRequestAttributes) x).getRequest());
     }
 
     public static Optional<HttpSession> getHttpSession()
     {
-        return getHttpServletRequest().map(x -> x.getSession());
+        return getHttpServletRequest().map(HttpServletRequest::getSession);
     }
 
     public static Optional<String> getUserId()
