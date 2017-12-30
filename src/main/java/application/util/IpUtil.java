@@ -12,27 +12,27 @@ public final class IpUtil
     {
     }
 
+    private static boolean isInvalidIp(String ip)
+    {
+        return ip != null && !ip.isEmpty() && !"unknown".equalsIgnoreCase(ip);
+    }
+
     public static String getClientIp(HttpServletRequest request)
     {
         Objects.requireNonNull(request, "request cannot be nul");
 
         String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        if (isInvalidIp(ip))
         {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        if (isInvalidIp(ip))
         {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        if (isInvalidIp(ip))
         {
             ip = request.getRemoteAddr();
-        }
-
-        if (ip.equals("0:0:0:0:0:0:0:1") || ip.equals("::1"))
-        {
-            ip = "127.0.0.1";
         }
 
         return ip;
