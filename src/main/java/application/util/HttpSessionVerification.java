@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Component
-public class SessionVerification
+public class HttpSessionVerification
 {
     @Autowired
     private HttpSession session;
@@ -73,7 +73,7 @@ public class SessionVerification
 
         if (session == null)
         {
-            session = Context.getSession()
+            session = Context.getHttpSession()
                     .orElse(null);
         }
 

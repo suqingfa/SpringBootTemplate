@@ -30,7 +30,7 @@ public final class Context implements ApplicationContextAware
         return context.getBean(name);
     }
 
-    public static Optional<HttpServletRequest> getRequest()
+    public static Optional<HttpServletRequest> getHttpServletRequest()
     {
         RequestAttributes attributes = RequestContextHolder.currentRequestAttributes();
         return Optional.ofNullable(attributes)
@@ -40,9 +40,9 @@ public final class Context implements ApplicationContextAware
                 );
     }
 
-    public static Optional<HttpSession> getSession()
+    public static Optional<HttpSession> getHttpSession()
     {
-        return getRequest().map(x -> x.getSession());
+        return getHttpServletRequest().map(x -> x.getSession());
     }
 
     public static Optional<String> getUserId()

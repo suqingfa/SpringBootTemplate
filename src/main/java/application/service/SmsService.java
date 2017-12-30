@@ -5,7 +5,7 @@ import application.initializer.SmsInitializer;
 import application.model.Output;
 import application.model.common.SendSmsInput;
 import application.util.GenerateRandomSequence;
-import application.util.SessionVerification;
+import application.util.HttpSessionVerification;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.RpcAcsRequest;
 import com.aliyuncs.exceptions.ClientException;
@@ -27,7 +27,7 @@ import static application.model.Output.outputParameterError;
 public class SmsService
 {
     @Autowired
-    private SessionVerification verification;
+    private HttpSessionVerification verification;
     @Autowired
     private AliyunProperties aliyunProperties;
 

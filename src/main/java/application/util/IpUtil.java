@@ -40,7 +40,7 @@ public final class IpUtil
 
     public static Optional<String> getClientIp()
     {
-        return Context.getRequest()
+        return Context.getHttpServletRequest()
                 .map(IpUtil::getClientIp);
     }
 }

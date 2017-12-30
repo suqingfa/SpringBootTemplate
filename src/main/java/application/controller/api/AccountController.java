@@ -81,7 +81,7 @@ public class AccountController
 
     private void autoLogin(String username, String password)
     {
-        Context.getRequest()
+        Context.getHttpServletRequest()
                 .ifPresent(request ->
                 {
                     AuthenticationManager authenticationManager = Context.getBean(AuthenticationManager.class);
