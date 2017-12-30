@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static application.model.Output.outputOk;
 import static application.model.Output.outputParameterError;
 
@@ -31,16 +33,16 @@ public class SmsService
 
     public Output sendSms(SendSmsInput input) throws ClientException
     {
-        String code = send(input.getPhone());
-        if (code == null)
-        {
-            return outputParameterError();
-        }
-        verification.setSession(input.getPhone(), code);
-        return outputOk();
+        return send(input.getPhone())
+                .map(code ->
+                {
+                    verification.setSession(input.getPhone(), code);
+                    return outputOk();
+                })
+                .orElse(outputParameterError());
     }
 
-    private String send(String phone) throws ClientException
+    private Optional<String> send(String phone) throws ClientException
     {
         GenerateRandomSequence randomSequence = new GenerateRandomSequence();
         String code = randomSequence.getRandomSequence();
@@ -59,10 +61,10 @@ public class SmsService
                 .equals("OK"))
         {
             log.warn("发送验证码失败！手机号:{} 信息:{}", phone, response.getMessage());
-            return null;
+            return Optional.empty();
         }
 
-        return code;
+        return Optional.of(code);
     }
 
     private static class SendSmsRequest extends RpcAcsRequest<SendSmsResponse>

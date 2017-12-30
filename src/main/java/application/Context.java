@@ -11,6 +11,7 @@ import org.springframework.web.context.request.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public final class Context implements ApplicationContextAware
@@ -29,50 +30,33 @@ public final class Context implements ApplicationContextAware
         return context.getBean(name);
     }
 
-    public static HttpServletRequest getRequest()
+    public static Optional<HttpServletRequest> getRequest()
     {
         RequestAttributes attributes = RequestContextHolder.currentRequestAttributes();
-
-        if (!(attributes instanceof ServletRequestAttributes))
-        {
-            return null;
-        }
-
-        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        return Optional.ofNullable(attributes)
+                .filter(x -> x instanceof ServletRequestAttributes)
+                .map(
+                        x -> ((ServletRequestAttributes) x).getRequest()
+                );
     }
 
-    public static HttpSession getSession()
+    public static Optional<HttpSession> getSession()
     {
-        HttpServletRequest request = getRequest();
-        if (request == null)
-        {
-            return null;
-        }
-
-        return request.getSession();
+        return getRequest().map(x -> x.getSession());
     }
 
-    public static String getUserId()
+    public static Optional<String> getUserId()
     {
-        User user = getUser();
-        if (user == null)
-        {
-            return null;
-        }
-
-        return user.getId();
+        return getUser().map(User::getId);
     }
 
-    public static User getUser()
+    public static Optional<User> getUser()
     {
         Object principal = SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        if (principal instanceof User)
-        {
-            return (User) principal;
-        }
-        return null;
+                .getAuthentication();
+        return Optional.ofNullable(principal)
+                .filter(x -> x instanceof User)
+                .map(x -> (User) x);
     }
 
     private static void checkContext()

@@ -10,8 +10,8 @@ public interface BelongUser extends Serializable
 
     default boolean isNotBelong()
     {
-        String userId = Context.getUserId();
-        return userId == null || getUser() == null || !getUser().getId()
-                .equals(userId);
+        return Context.getUserId()
+                .map(x -> x.equals(getUser().getId()))
+                .orElse(false);
     }
 }

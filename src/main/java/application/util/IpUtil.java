@@ -4,8 +4,9 @@ import application.Context;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
+import java.util.Optional;
 
-public class IpUtil
+public final class IpUtil
 {
     private IpUtil()
     {
@@ -37,8 +38,9 @@ public class IpUtil
         return ip;
     }
 
-    public static String getClientIp()
+    public static Optional<String> getClientIp()
     {
-        return getClientIp(Context.getRequest());
+        return Context.getRequest()
+                .map(IpUtil::getClientIp);
     }
 }

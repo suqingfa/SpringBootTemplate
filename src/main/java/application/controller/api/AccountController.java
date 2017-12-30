@@ -13,7 +13,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -82,14 +81,17 @@ public class AccountController
 
     private void autoLogin(String username, String password)
     {
-        HttpServletRequest request = Context.getRequest();
-        AuthenticationManager authenticationManager = Context.getBean(AuthenticationManager.class);
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        token.setDetails(new WebAuthenticationDetails(request));
-        Authentication authenticatedUser = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext()
-                .setAuthentication(authenticatedUser);
-        request.getSession()
-                .setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+        Context.getRequest()
+                .ifPresent(request ->
+                {
+                    AuthenticationManager authenticationManager = Context.getBean(AuthenticationManager.class);
+                    UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+                    token.setDetails(new WebAuthenticationDetails(request));
+                    Authentication authenticatedUser = authenticationManager.authenticate(token);
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(authenticatedUser);
+                    request.getSession()
+                            .setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+                });
     }
 }

@@ -70,11 +70,11 @@ public class SessionVerification
     {
         Objects.requireNonNull(key, "key cannot be null");
         Objects.requireNonNull(code, "code cannot be null");
-        Objects.requireNonNull(!key.isEmpty() && !code.isEmpty(), "key or code cannot be empty");
 
         if (session == null)
         {
-            session = Context.getSession();
+            session = Context.getSession()
+                    .orElse(null);
         }
 
         Objects.requireNonNull(session, "HttpSession cannot be null");
