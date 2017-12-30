@@ -12,6 +12,8 @@ public interface AuthorityRepository extends JpaRepository<Authority, String>
     @Cacheable
     Authority findByRole(Authority.Role role);
 
+    boolean existsByRole(Authority.Role role);
+
     @CachePut
     @Override
     Authority save(Authority authority);
