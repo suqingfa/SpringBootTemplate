@@ -1,7 +1,7 @@
 # 说明
     前端与后台使用Cookie保持会话，因此前端请求的时候需要携带相应Cookie, 请求响应时需要保存Cookie。
     前端需要自动处理301重定向，否则可能得不到正确响应。
-    如无特殊说明，请求为参数格式json，请求时需要设置Content-Type:application/json;charset=UTF-8
+    如无特殊说明，请求为参数格式 form 表单，请求时需要设置Content-Type:application/x-www-form-urlencoded 
     响应格式为json
         请求成功时，响应格式如下，在文档中简写为"info":"OK" 或 "data":{...}
             响应不包含数据时
