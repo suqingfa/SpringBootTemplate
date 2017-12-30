@@ -1,6 +1,6 @@
 package application.service;
 
-import application.Application;
+import application.Context;
 import application.config.properties.AliyunProperties;
 import application.initializer.SmsInitializer;
 import application.model.Output;
@@ -43,7 +43,7 @@ public class SmsService
 
     private String send(String phone) throws ClientException
     {
-        GenerateRandomSequence randomSequence = Application.getBean(GenerateRandomSequence.class);
+        GenerateRandomSequence randomSequence = Context.getBean(GenerateRandomSequence.class);
         String code = randomSequence.getRandomSequence();
 
         SendSmsRequest request = new SendSmsRequest();

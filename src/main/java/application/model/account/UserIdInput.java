@@ -1,10 +1,10 @@
 package application.model.account;
 
-import application.Application;
+import application.Context;
 import lombok.Data;
 
 @Data
 public class UserIdInput
 {
-    private String id = Application.getUserId();
+    private String id = Context.getUserId();
 }

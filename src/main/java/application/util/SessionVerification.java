@@ -1,6 +1,6 @@
 package application.util;
 
-import application.Application;
+import application.Context;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -75,7 +75,7 @@ public class SessionVerification
 
         if (session == null)
         {
-            session = Application.getSession();
+            session = Context.getSession();
         }
 
         Objects.requireNonNull(session, "HttpSession cannot be null");

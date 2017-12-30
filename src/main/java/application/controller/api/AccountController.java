@@ -1,6 +1,6 @@
 package application.controller.api;
 
-import application.Application;
+import application.Context;
 import application.model.Output;
 import application.model.account.*;
 import application.service.AccountService;
@@ -82,8 +82,8 @@ public class AccountController
 
     private void autoLogin(String username, String password)
     {
-        HttpServletRequest request = Application.getRequest();
-        AuthenticationManager authenticationManager = Application.getBean(AuthenticationManager.class);
+        HttpServletRequest request = Context.getRequest();
+        AuthenticationManager authenticationManager = Context.getBean(AuthenticationManager.class);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         token.setDetails(new WebAuthenticationDetails(request));
         Authentication authenticatedUser = authenticationManager.authenticate(token);

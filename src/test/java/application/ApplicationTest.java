@@ -31,7 +31,7 @@ public class ApplicationTest
     @Test
     public void testRedis()
     {
-        StringRedisTemplate redisTemplate = Application.getBean(StringRedisTemplate.class);
+        StringRedisTemplate redisTemplate = Context.getBean(StringRedisTemplate.class);
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         if (valueOperations.get("ttl") == null)
         {
@@ -43,14 +43,14 @@ public class ApplicationTest
     @Test
     public void testProperties()
     {
-        AliyunProperties properties = Application.getBean(AliyunProperties.class);
+        AliyunProperties properties = Context.getBean(AliyunProperties.class);
         log.info(properties.toString());
     }
 
     @Test
     public void testAsync() throws Exception
     {
-        AsyncTask task = Application.getBean(AsyncTask.class);
+        AsyncTask task = Context.getBean(AsyncTask.class);
         Future<String> result = task.doTask();
         log.info(result.get());
     }
@@ -58,7 +58,7 @@ public class ApplicationTest
     @Test
     public void testJapExample()
     {
-        UserRepository userRepository = Application.getBean(UserRepository.class);
+        UserRepository userRepository = Context.getBean(UserRepository.class);
 
         User user = new User();
         user.setUsername("username");

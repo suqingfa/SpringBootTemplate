@@ -1,6 +1,6 @@
 package application.util;
 
-import application.Application;
+import application.Context;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -39,6 +39,6 @@ public class IpUtil
 
     public static String getClientIp()
     {
-        return getClientIp(Application.getRequest());
+        return getClientIp(Context.getRequest());
     }
 }
