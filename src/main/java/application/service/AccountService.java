@@ -1,5 +1,6 @@
 package application.service;
 
+import application.Application;
 import application.entity.User;
 import application.model.Output;
 import application.model.account.*;
@@ -59,7 +60,7 @@ public class AccountService
 
     public Output setUserAvatar(byte[] data)
     {
-        fileManager.save("UserAvatar/" + User.getUserId(), data);
+        fileManager.save("UserAvatar/" + Application.getUserId(), data);
         return outputOk();
     }
 }

@@ -1,5 +1,7 @@
 package application.entity;
 
+import application.Application;
+
 import java.io.Serializable;
 
 public interface BelongUser extends Serializable
@@ -8,9 +10,8 @@ public interface BelongUser extends Serializable
 
     default boolean isNotBelong()
     {
-        String userId = User.getUserId();
+        String userId = Application.getUserId();
         return userId == null || getUser() == null || !getUser().getId()
                 .equals(userId);
-
     }
 }

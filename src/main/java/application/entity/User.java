@@ -3,7 +3,6 @@ package application.entity;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -39,27 +38,4 @@ public class User implements UserDetails
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Authority> authorities;
-
-    public static String getUserId()
-    {
-        User user = getUser();
-        if (user == null)
-        {
-            return null;
-        }
-
-        return user.getId();
-    }
-
-    public static User getUser()
-    {
-        Object principal = SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        if (principal instanceof User)
-        {
-            return (User) principal;
-        }
-        return null;
-    }
 }

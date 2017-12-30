@@ -1,5 +1,6 @@
 package application;
 
+import application.entity.User;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,6 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -43,5 +45,28 @@ public class Application extends SpringBootServletInitializer implements Applica
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
     {
         context = applicationContext;
+    }
+
+    public static String getUserId()
+    {
+        User user = getUser();
+        if (user == null)
+        {
+            return null;
+        }
+
+        return user.getId();
+    }
+
+    public static User getUser()
+    {
+        Object principal = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if (principal instanceof User)
+        {
+            return (User) principal;
+        }
+        return null;
     }
 }
