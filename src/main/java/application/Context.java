@@ -10,19 +10,22 @@ import org.springframework.web.context.request.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 @Component
-public class Context implements ApplicationContextAware
+public final class Context implements ApplicationContextAware
 {
     private static ApplicationContext context;
 
     public static <T> T getBean(Class<T> requiredType)
     {
+        checkContext();
         return context.getBean(requiredType);
     }
 
     public static Object getBean(String name)
     {
+        checkContext();
         return context.getBean(name);
     }
 
@@ -49,7 +52,6 @@ public class Context implements ApplicationContextAware
         return request.getSession();
     }
 
-
     public static String getUserId()
     {
         User user = getUser();
@@ -73,9 +75,15 @@ public class Context implements ApplicationContextAware
         return null;
     }
 
+    private static void checkContext()
+    {
+        Objects.requireNonNull(context, "ApplicationContext is null");
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
     {
         context = applicationContext;
+        checkContext();
     }
 }
