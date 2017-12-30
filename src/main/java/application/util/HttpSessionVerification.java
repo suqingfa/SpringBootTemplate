@@ -73,8 +73,8 @@ public class HttpSessionVerification
 
         if (session == null)
         {
-            session = Context.getHttpSession()
-                    .orElse(null);
+            Context.getHttpSession()
+                    .ifPresent(httpSession -> session = httpSession);
         }
 
         Objects.requireNonNull(session, "HttpSession cannot be null");
