@@ -14,7 +14,7 @@ public final class IpUtil
 
     private static boolean isInvalidIp(String ip)
     {
-        return ip != null && !ip.isEmpty() && !"unknown".equalsIgnoreCase(ip);
+        return ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip);
     }
 
     public static String getClientIp(HttpServletRequest request)
