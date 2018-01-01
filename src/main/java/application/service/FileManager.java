@@ -5,6 +5,7 @@ import application.repository.FileRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Component
 public class FileManager
@@ -17,22 +18,9 @@ public class FileManager
         return fileRepository.save(file);
     }
 
-    public File save(String id, byte[] bytes)
+    public Optional<byte[]> find(String id)
     {
-        File file = new File();
-        file.setId(id);
-        file.setData(bytes);
-        return save(file);
-    }
-
-    public byte[] findOne(String id)
-    {
-        File file = fileRepository.findOne(id);
-        if (file == null)
-        {
-            return null;
-        }
-
-        return file.getData();
+        return fileRepository.findFirstById(id)
+                .map(File::getData);
     }
 }

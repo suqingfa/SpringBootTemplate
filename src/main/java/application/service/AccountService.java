@@ -11,8 +11,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.IOException;
 
-import static application.model.Output.outputOk;
-import static application.model.Output.outputUsernameExist;
+import static application.model.Output.*;
 
 @Service
 @Transactional
@@ -25,7 +24,8 @@ public class AccountService
 
     public Output register(RegisterInput input)
     {
-        if (userRepository.existsByUsername(input.getUsername()))
+        if (userRepository.findFirstByUsername(input.getUsername())
+                .isPresent())
         {
             return outputUsernameExist();
         }
@@ -45,18 +45,16 @@ public class AccountService
 
     public Output getUserInfo(String id)
     {
-        UserInfoOutput output = userRepository.findById(id, UserInfoOutput.class);
-        return outputOk(output);
+        return userRepository.findFirstById(id, UserInfoOutput.class)
+                .map(Output::outputOk)
+                .orElse(outputParameterError());
     }
 
-    public byte[] getUserAvatar(String UserId)
+    public byte[] getUserAvatar(UserIdInput input)
     {
-        byte[] result = fileManager.findOne("UserAvatar/" + UserId);
-        if (result == null)
-        {
-            fileManager.findOne("UserAvatar");
-        }
-        return result;
+        return fileManager.find("UserAvatar/" + input.getId())
+                .orElse(fileManager.find("UserAvatar")
+                        .orElse(null));
     }
 
     public Output setUserAvatar(SetUserAvatarInput input) throws IOException

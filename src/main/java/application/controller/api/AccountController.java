@@ -65,7 +65,7 @@ public class AccountController
     @GetMapping("getUserAvatar")
     public void getUserAvatar(@Valid UserIdInput input, HttpServletResponse response) throws IOException
     {
-        byte[] data = accountService.getUserAvatar(input.getId());
+        byte[] data = accountService.getUserAvatar(input);
         response.setContentType("image/png");
         response.getOutputStream()
                 .write(data);
