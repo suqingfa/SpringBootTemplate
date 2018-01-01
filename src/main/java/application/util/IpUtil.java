@@ -3,8 +3,9 @@ package application.util;
 import application.ContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public final class IpUtil
 {
@@ -12,35 +13,25 @@ public final class IpUtil
     {
     }
 
-    private static boolean isInvalidIp(String ip)
+    public static Optional<String> getClientIp(@NotNull HttpServletRequest request)
     {
-        return ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip);
-    }
-
-    public static String getClientIp(HttpServletRequest request)
-    {
-        Objects.requireNonNull(request, "request cannot be nul");
-
-        String ip = request.getHeader("x-forwarded-for");
-        if (isInvalidIp(ip))
-        {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (isInvalidIp(ip))
-        {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (isInvalidIp(ip))
-        {
-            ip = request.getRemoteAddr();
-        }
-
-        return ip;
+        return Stream.of(
+                request.getHeader("x-forwarded-for"),
+                request.getHeader("Proxy-Client-IP"),
+                request.getHeader("WL-Proxy-Client-IP"),
+                request.getRemoteAddr())
+                .filter(ip -> ip != null && !ip.isEmpty() && !"unknown".equalsIgnoreCase(ip))
+                .findFirst();
     }
 
     public static Optional<String> getClientIp()
     {
-        return ContextHolder.getHttpServletRequest()
-                .map(IpUtil::getClientIp);
+        Optional<String> result = Optional.empty();
+        Optional<HttpServletRequest> request = ContextHolder.getHttpServletRequest();
+        if (request.isPresent())
+        {
+            result = getClientIp(request.get());
+        }
+        return result;
     }
 }
