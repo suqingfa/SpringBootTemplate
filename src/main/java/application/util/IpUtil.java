@@ -27,7 +27,7 @@ public final class IpUtil
     public static Optional<String> getClientIp()
     {
         Optional<String> result = Optional.empty();
-        Optional<HttpServletRequest> request = ContextHolder.getHttpServletRequest();
+        Optional<HttpServletRequest> request = ContextHolder.getHttpServletRequestOptional();
         if (request.isPresent())
         {
             result = getClientIp(request.get());

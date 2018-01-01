@@ -30,7 +30,7 @@ public final class ContextHolder implements ApplicationContextAware
         return context.getBean(name);
     }
 
-    public static Optional<HttpServletRequest> getHttpServletRequest()
+    public static Optional<HttpServletRequest> getHttpServletRequestOptional()
     {
         RequestAttributes attributes = RequestContextHolder.currentRequestAttributes();
         return Optional.ofNullable(attributes)
@@ -38,17 +38,17 @@ public final class ContextHolder implements ApplicationContextAware
                 .map(x -> ((ServletRequestAttributes) x).getRequest());
     }
 
-    public static Optional<HttpSession> getHttpSession()
+    public static Optional<HttpSession> getHttpSessionOptional()
     {
-        return getHttpServletRequest().map(HttpServletRequest::getSession);
+        return getHttpServletRequestOptional().map(HttpServletRequest::getSession);
     }
 
-    public static Optional<String> getUserId()
+    public static Optional<String> getUserIdOptional()
     {
-        return getUser().map(User::getId);
+        return getUserOptional().map(User::getId);
     }
 
-    public static Optional<User> getUser()
+    public static Optional<User> getUserOptional()
     {
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication();

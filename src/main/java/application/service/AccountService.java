@@ -11,7 +11,8 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.IOException;
 
-import static application.model.Output.*;
+import static application.model.Output.outputOk;
+import static application.model.Output.outputUsernameExist;
 
 @Service
 @Transactional
@@ -45,9 +46,8 @@ public class AccountService
 
     public Output getUserInfo(String id)
     {
-        return userRepository.findFirstById(id, UserInfoOutput.class)
-                .map(Output::outputOk)
-                .orElse(outputParameterError());
+        UserInfoOutput output = userRepository.findFirstById(id, UserInfoOutput.class);
+        return outputOk(output);
     }
 
     public byte[] getUserAvatar(UserIdInput input)

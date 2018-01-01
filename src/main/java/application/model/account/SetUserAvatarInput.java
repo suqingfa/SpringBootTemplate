@@ -23,7 +23,7 @@ public class SetUserAvatarInput implements ModelToEntity<File>
     public File toEntity() throws IOException
     {
         File file = new File();
-        file.setId("UserAvatar/" + ContextHolder.getUserId());
+        file.setId("UserAvatar/" + ContextHolder.getUserIdOptional());
         file.setData(this.file.getBytes());
         return file;
     }

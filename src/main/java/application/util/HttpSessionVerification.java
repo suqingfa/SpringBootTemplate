@@ -73,7 +73,7 @@ public class HttpSessionVerification
 
         if (session == null)
         {
-            ContextHolder.getHttpSession()
+            ContextHolder.getHttpSessionOptional()
                     .ifPresent(httpSession -> session = httpSession);
         }
 

@@ -9,6 +9,6 @@ import javax.validation.constraints.NotNull;
 public class UserIdInput
 {
     @NotNull
-    private String id = ContextHolder.getUserId()
+    private String id = ContextHolder.getUserIdOptional()
             .orElse(null);
 }

@@ -11,5 +11,5 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
 {
     Optional<T> findFirstById(ID id);
 
-    <R> Optional<R> findFirstById(ID id, Class<R> type);
+    <R> R findFirstById(ID id, Class<R> type);
 }
