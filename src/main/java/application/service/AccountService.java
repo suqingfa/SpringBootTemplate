@@ -4,6 +4,7 @@ import application.entity.File;
 import application.entity.User;
 import application.model.Output;
 import application.model.account.*;
+import application.repository.FileRepository;
 import application.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class AccountService
     @Resource
     private UserRepository userRepository;
     @Resource
-    private FileManager fileManager;
+    private FileRepository fileRepository;
 
     public Output register(RegisterInput input)
     {
@@ -52,15 +53,15 @@ public class AccountService
 
     public byte[] getUserAvatar(UserIdInput input)
     {
-        return fileManager.find("UserAvatar/" + input.getId())
-                .orElse(fileManager.find("UserAvatar")
+        return fileRepository.find("UserAvatar/" + input.getId())
+                .orElse(fileRepository.find("UserAvatar")
                         .orElse(null));
     }
 
     public Output setUserAvatar(SetUserAvatarInput input) throws IOException
     {
         File file = input.toEntity();
-        fileManager.save(file);
+        fileRepository.save(file);
         return outputOk();
     }
 }
