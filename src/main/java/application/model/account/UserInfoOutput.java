@@ -1,22 +1,7 @@
 package application.model.account;
 
-import application.entity.User;
-import application.model.ModelFromEntity;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class UserInfoOutput implements ModelFromEntity<User>
+public interface UserInfoOutput
 {
-    private String id;
-    private String username;
-
-    @Override
-    public UserInfoOutput fromEntity(User user)
-    {
-        id = user.getId();
-        username = user.getUsername();
-        return this;
-    }
+    String getId();
+    String getUsername();
 }

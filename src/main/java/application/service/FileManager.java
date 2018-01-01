@@ -12,12 +12,17 @@ public class FileManager
     @Resource
     private FileRepository fileRepository;
 
+    public File save(File file)
+    {
+        return fileRepository.save(file);
+    }
+
     public File save(String id, byte[] bytes)
     {
         File file = new File();
         file.setId(id);
         file.setData(bytes);
-        return fileRepository.save(file);
+        return save(file);
     }
 
     public byte[] findOne(String id)

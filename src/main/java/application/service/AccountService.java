@@ -1,6 +1,6 @@
 package application.service;
 
-import application.ContextHolder;
+import application.entity.File;
 import application.entity.User;
 import application.model.Output;
 import application.model.account.*;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.io.IOException;
 
 import static application.model.Output.outputOk;
 import static application.model.Output.outputUsernameExist;
@@ -44,7 +45,7 @@ public class AccountService
 
     public Output getUserInfo(String id)
     {
-        UserInfoOutput output = new UserInfoOutput().fromEntity(userRepository.findOne(id));
+        UserInfoOutput output = userRepository.findById(id, UserInfoOutput.class);
         return outputOk(output);
     }
 
@@ -58,9 +59,10 @@ public class AccountService
         return result;
     }
 
-    public Output setUserAvatar(byte[] data)
+    public Output setUserAvatar(SetUserAvatarInput input) throws IOException
     {
-        fileManager.save("UserAvatar/" + ContextHolder.getUserId(), data);
+        File file = input.toEntity();
+        fileManager.save(file);
         return outputOk();
     }
 }

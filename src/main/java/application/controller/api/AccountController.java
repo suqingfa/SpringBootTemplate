@@ -74,9 +74,7 @@ public class AccountController
     @PostMapping("setUserAvatar")
     public Output setUserAvatar(@Valid SetUserAvatarInput input) throws IOException
     {
-        byte[] data = input.getFile()
-                .getBytes();
-        return accountService.setUserAvatar(data);
+        return accountService.setUserAvatar(input);
     }
 
     private void autoLogin(String username, String password)
