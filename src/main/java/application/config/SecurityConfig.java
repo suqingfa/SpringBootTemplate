@@ -1,6 +1,5 @@
 package application.config;
 
-import application.entity.User;
 import application.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,14 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public UserDetailsService userDetailsService(UserRepository userRepository)
     {
         return username ->
-        {
-            User user = userRepository.findByUsername(username);
-            if (user == null)
-            {
-                throw new UsernameNotFoundException("UsernameNotFoundException");
-            }
-            return user;
-        };
+                userRepository.findFirstByUsername(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("UsernameNotFoundException"));
     }
 
     @Bean
