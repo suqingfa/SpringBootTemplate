@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Validated
-public class UpdatePasswordInput implements ModelUpdateEntity<User>
+public class UpdatePasswordInput extends ModelUpdateEntity<User>
 {
     @NotNull
     @Length(min = 6)
     private String password;
 
     @Override
-    public void update(User user)
+    protected void set(User user)
     {
         PasswordEncoder passwordEncoder = ContextHolder.getBean(PasswordEncoder.class);
         user.setPassword(passwordEncoder.encode(password));

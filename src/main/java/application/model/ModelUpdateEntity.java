@@ -1,6 +1,12 @@
 package application.model;
 
-public interface ModelUpdateEntity<E>
+public abstract class ModelUpdateEntity<E>
 {
-    void update(E e);
+    public final void update(E e)
+    {
+        CopySameFields.copySameFields(this, e);
+        set(e);
+    }
+
+    protected abstract void set(E e);
 }
