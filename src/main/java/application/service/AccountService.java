@@ -45,9 +45,9 @@ public class AccountService
         return outputOk();
     }
 
-    public Output getUserInfo(String id)
+    public Output getUserInfo(UserIdInput input)
     {
-        UserInfoOutput output = userRepository.findFirstById(id, UserInfoOutput.class);
+        UserInfoOutput output = userRepository.findFirstById(input.getId(), UserInfoOutput.class);
         return outputOk(output);
     }
 

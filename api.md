@@ -99,7 +99,7 @@
     /getUserAvatar get
     Request
         {
-            "id":String,        // 可选
+            "id":String,
         }
     Response
         图片文件/默认头像
@@ -108,7 +108,7 @@
     /getUserInfo get
     Request
         {
-            "id":String,        // 可选
+            "id":String,
         }
     Response
         "data":{

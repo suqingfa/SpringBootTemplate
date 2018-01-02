@@ -48,18 +48,13 @@ public class AccountController
     @GetMapping("getUserInfo")
     public Output getUserInfo(@Valid UserIdInput input)
     {
-        return accountService.getUserInfo(input.getId());
+        return accountService.getUserInfo(input);
     }
 
     @PostMapping("register")
     public Output register(@Valid RegisterInput input)
     {
-        Output output = accountService.register(input);
-        if (output.getInfo() == Output.Info.OK)
-        {
-            autoLogin(input.getUsername(), input.getPassword());
-        }
-        return output;
+        return accountService.register(input);
     }
 
     @GetMapping("getUserAvatar")

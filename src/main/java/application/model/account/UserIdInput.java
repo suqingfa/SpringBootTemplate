@@ -1,6 +1,5 @@
 package application.model.account;
 
-import application.ContextHolder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -9,6 +8,5 @@ import javax.validation.constraints.NotNull;
 public class UserIdInput
 {
     @NotNull
-    private String id = ContextHolder.getUserIdOptional()
-            .orElse(null);
+    private String id;
 }
