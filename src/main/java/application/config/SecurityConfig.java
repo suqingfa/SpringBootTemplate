@@ -81,15 +81,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     public void configure(WebSecurity web)
     {
-        web.ignoring()
-                .antMatchers("/error/**", "/js/**", "/css/**", "/images/**", "/**/favicon.ico", "/lib/**");
+        web.ignoring().antMatchers("/error/**", "/js/**", "/css/**", "/images/**", "/**/favicon.ico", "/lib/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.csrf()
-                .disable();
+        http.csrf().ignoringAntMatchers("/api/**");
 
         http.authorizeRequests()
                 .antMatchers("/api/common/**", "/api/account/login", "/api/account/register")
@@ -104,8 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .successForwardUrl("/api/account/loginSuccess")
                 .permitAll();
 
-        http.rememberMe()
-                .tokenValiditySeconds(10 * 24 * 3600);
+        http.rememberMe().tokenValiditySeconds(10 * 24 * 3600);
 
         http.logout()
                 .logoutUrl("/api/account/logout")
