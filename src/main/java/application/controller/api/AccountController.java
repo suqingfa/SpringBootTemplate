@@ -67,7 +67,7 @@ public class AccountController
     }
 
     @PostMapping("setUserAvatar")
-    public Output setUserAvatar(@Valid SetUserAvatarInput input) throws IOException
+    public Output setUserAvatar(@Valid SetUserAvatarInput input)
     {
         return accountService.setUserAvatar(input);
     }
@@ -84,7 +84,8 @@ public class AccountController
                     SecurityContextHolder.getContext()
                             .setAuthentication(authenticatedUser);
                     request.getSession()
-                            .setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+                            .setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder
+                                    .getContext());
                 });
     }
 }

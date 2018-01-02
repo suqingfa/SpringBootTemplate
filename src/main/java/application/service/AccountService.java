@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.io.IOException;
 
 import static application.model.Output.outputOk;
 import static application.model.Output.outputUsernameExist;
@@ -32,7 +31,7 @@ public class AccountService
             return outputUsernameExist();
         }
 
-        userRepository.save(input.toEntity());
+        userRepository.save(input.toEntity(User::new));
 
         return outputOk();
     }
@@ -58,9 +57,9 @@ public class AccountService
                         .orElse(null));
     }
 
-    public Output setUserAvatar(SetUserAvatarInput input) throws IOException
+    public Output setUserAvatar(SetUserAvatarInput input)
     {
-        File file = input.toEntity();
+        File file = input.toEntity(File::new);
         fileRepository.save(file);
         return outputOk();
     }

@@ -14,17 +14,15 @@ import java.io.IOException;
 @Getter
 @Setter
 @Validated
-public class SetUserAvatarInput implements ModelToEntity<File>
+public class SetUserAvatarInput extends ModelToEntity<File>
 {
     @NotNull
     private MultipartFile file;
 
     @Override
-    public File toEntity() throws IOException
+    protected void set(File file) throws IOException
     {
-        File file = new File();
         file.setId("UserAvatar/" + ContextHolder.getUserIdOptional());
         file.setData(this.file.getBytes());
-        return file;
     }
 }

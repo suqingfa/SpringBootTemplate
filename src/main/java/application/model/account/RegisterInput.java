@@ -16,7 +16,7 @@ import java.util.Arrays;
 @Getter
 @Setter
 @Validated
-public class RegisterInput implements ModelToEntity<User>
+public class RegisterInput extends ModelToEntity<User>
 {
     @NotNull
     @Length(min = 4)
@@ -27,17 +27,13 @@ public class RegisterInput implements ModelToEntity<User>
     private Authority.Role role = Authority.Role.USER;
 
     @Override
-    public User toEntity()
+    public void set(User user)
     {
         PasswordEncoder passwordEncoder = ContextHolder.getBean(PasswordEncoder.class);
-        User user = new User();
-        user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
 
         Authority authority = new Authority();
         authority.setRole(role);
         user.setAuthorities(Arrays.asList(authority));
-
-        return user;
     }
 }
