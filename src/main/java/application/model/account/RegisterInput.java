@@ -27,7 +27,7 @@ public class RegisterInput extends ModelToEntity<User>
     private Authority.Role role = Authority.Role.USER;
 
     @Override
-    public void set(User user)
+    protected void set(User user)
     {
         PasswordEncoder passwordEncoder = ContextHolder.getBean(PasswordEncoder.class);
         user.setPassword(passwordEncoder.encode(password));
