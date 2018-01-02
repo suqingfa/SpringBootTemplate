@@ -1,5 +1,6 @@
 package application.config;
 
+import application.entity.Authority;
 import application.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -93,8 +94,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.authorizeRequests()
                 .antMatchers("/api/common/**", "/api/account/login", "/api/account/register")
                 .permitAll()
-                .anyRequest()
-                .authenticated();
+                .antMatchers("/api/**")
+                .authenticated()
+                .antMatchers("/admin/**")
+                .hasAuthority(Authority.Role.ADMIN.name());
 
         http.formLogin()
                 .loginPage("/api/account/login")
