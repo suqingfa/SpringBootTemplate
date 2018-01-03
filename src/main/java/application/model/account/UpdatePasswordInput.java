@@ -21,7 +21,7 @@ public class UpdatePasswordInput extends ModelUpdateEntity<User>
     private String password;
 
     @Override
-    protected void set(User user)
+    public void update(User user)
     {
         PasswordEncoder passwordEncoder = ContextHolder.getBean(PasswordEncoder.class);
         user.setPassword(passwordEncoder.encode(password));

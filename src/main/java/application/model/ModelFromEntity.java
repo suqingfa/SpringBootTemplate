@@ -1,13 +1,20 @@
 package application.model;
 
-public abstract class ModelFromEntity<F>
-{
-    public final ModelFromEntity<F> fromEntity(F f)
-    {
-        CopySameFields.copySameFields(f, this);
-        set();
-        return this;
-    }
+import javax.validation.UnexpectedTypeException;
 
-    protected abstract void set();
+public abstract class ModelFromEntity<F> extends ModelBase<ModelFromEntity>
+{
+    public final ModelFromEntity fromEntity(F f)
+    {
+        try
+        {
+            ModelFromEntity result = copyFields(f, getClass());
+            set(result);
+            return result;
+        }
+        catch (Exception e)
+        {
+            throw new UnexpectedTypeException();
+        }
+    }
 }

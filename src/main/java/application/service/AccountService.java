@@ -31,7 +31,7 @@ public class AccountService
             return outputUsernameExist();
         }
 
-        userRepository.save(input.toEntity(User::new));
+        userRepository.save(input.toEntity(User.class));
 
         return outputOk();
     }
@@ -59,7 +59,7 @@ public class AccountService
 
     public Output setUserAvatar(SetUserAvatarInput input)
     {
-        File file = input.toEntity(File::new);
+        File file = input.toEntity(File.class);
         fileRepository.save(file);
         return outputOk();
     }

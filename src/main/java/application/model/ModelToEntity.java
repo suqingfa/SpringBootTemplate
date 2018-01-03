@@ -3,15 +3,14 @@ package application.model;
 import javax.validation.UnexpectedTypeException;
 import java.util.function.Supplier;
 
-public abstract class ModelToEntity<T>
+public abstract class ModelToEntity<T> extends ModelBase <T>
 {
-    // TODO Supplier<T> supplier 是否有更优雅的实现？？？
-    public final T toEntity(Supplier<T> supplier)
+    // TODO  是否有更优雅的实现？？？
+    public final T toEntity(Class<T> clazz)
     {
-        T t = supplier.get();
-        CopySameFields.copySameFields(this, t);
         try
         {
+            T t = copyFields(this, clazz);
             set(t);
             return t;
         }
@@ -20,6 +19,4 @@ public abstract class ModelToEntity<T>
             throw new UnexpectedTypeException();
         }
     }
-
-    protected abstract void set(T t) throws Exception;
 }
