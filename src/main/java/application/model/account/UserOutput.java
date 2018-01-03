@@ -1,6 +1,6 @@
 package application.model.account;
 
-public interface UserInfoOutput
+public interface UserOutput
 {
     String getId();
 

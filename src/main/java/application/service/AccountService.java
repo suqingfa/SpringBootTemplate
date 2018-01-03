@@ -2,6 +2,7 @@ package application.service;
 
 import application.entity.File;
 import application.entity.User;
+import application.model.IdInput;
 import application.model.Output;
 import application.model.account.*;
 import application.repository.FileRepository;
@@ -44,13 +45,13 @@ public class AccountService
         return outputOk();
     }
 
-    public Output getUserInfo(UserIdInput input)
+    public Output getUserInfo(IdInput input)
     {
-        UserInfoOutput output = userRepository.findFirstById(input.getId(), UserInfoOutput.class);
+        UserOutput output = userRepository.findFirstById(input.getId(), UserOutput.class);
         return outputOk(output);
     }
 
-    public byte[] getUserAvatar(UserIdInput input)
+    public byte[] getUserAvatar(IdInput input)
     {
         return fileRepository.find("UserAvatar/" + input.getId())
                 .orElse(fileRepository.find("UserAvatar")

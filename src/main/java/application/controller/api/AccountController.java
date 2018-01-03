@@ -1,6 +1,7 @@
 package application.controller.api;
 
 import application.ContextHolder;
+import application.model.IdInput;
 import application.model.Output;
 import application.model.account.*;
 import application.service.AccountService;
@@ -46,7 +47,7 @@ public class AccountController
     }
 
     @GetMapping("getUserInfo")
-    public Output getUserInfo(@Valid UserIdInput input)
+    public Output getUserInfo(@Valid IdInput input)
     {
         return accountService.getUserInfo(input);
     }
@@ -58,7 +59,7 @@ public class AccountController
     }
 
     @GetMapping("getUserAvatar")
-    public void getUserAvatar(@Valid UserIdInput input, HttpServletResponse response) throws IOException
+    public void getUserAvatar(@Valid IdInput input, HttpServletResponse response) throws IOException
     {
         byte[] data = accountService.getUserAvatar(input);
         response.setContentType("image/png");
