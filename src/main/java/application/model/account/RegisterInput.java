@@ -24,7 +24,6 @@ public class RegisterInput extends ModelToEntity<User>
     @NotNull
     @Length(min = 6)
     private String password;
-    private Authority.Role role = Authority.Role.USER;
 
     @Override
     protected void set(User user)
@@ -33,7 +32,7 @@ public class RegisterInput extends ModelToEntity<User>
         user.setPassword(passwordEncoder.encode(password));
 
         Authority authority = new Authority();
-        authority.setRole(role);
+        authority.setRole(Authority.Role.USER);
         user.setAuthorities(Arrays.asList(authority));
     }
 }
