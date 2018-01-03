@@ -3,6 +3,8 @@ package application.model;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @Data
 public class Output<T>
 {
@@ -20,6 +22,11 @@ public class Output<T>
     private static <T> Output<T> output(Output.Info info)
     {
         return new Output<>(info, null);
+    }
+
+    public static <T> Output<T> output(Optional<T> optional)
+    {
+        return optional.map(Output::outputOk).orElseGet(Output::outputParameterError);
     }
 
     public static <T> Output<T> outputOk(T data)

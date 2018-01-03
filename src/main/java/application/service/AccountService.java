@@ -2,8 +2,7 @@ package application.service;
 
 import application.entity.File;
 import application.entity.User;
-import application.model.IdInput;
-import application.model.Output;
+import application.model.*;
 import application.model.account.*;
 import application.repository.FileRepository;
 import application.repository.UserRepository;
@@ -11,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
-import static application.model.Output.outputOk;
-import static application.model.Output.outputUsernameExist;
+import static application.model.Output.*;
 
 @Service
 @Transactional
@@ -47,8 +47,14 @@ public class AccountService
 
     public Output getUserInfo(IdInput input)
     {
-        UserOutput output = userRepository.findFirstById(input.getId(), UserOutput.class);
-        return outputOk(output);
+        Optional<UserOutput> optional = userRepository.findFirstById(input.getId(), UserOutput.class);
+        return output(optional);
+    }
+
+    public Output ListUser(PageInput input)
+    {
+        List<UserOutput> outputs = userRepository.findAllByIdNotNull(input.getPageable());
+        return outputOk(outputs);
     }
 
     public byte[] getUserAvatar(IdInput input)

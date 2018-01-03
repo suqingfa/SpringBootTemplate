@@ -1,8 +1,7 @@
 package application.controller.api;
 
 import application.ContextHolder;
-import application.model.IdInput;
-import application.model.Output;
+import application.model.*;
 import application.model.account.*;
 import application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +49,12 @@ public class AccountController
     public Output getUserInfo(@Valid IdInput input)
     {
         return accountService.getUserInfo(input);
+    }
+
+    @GetMapping("listUser")
+    public Output listUser(@Valid PageInput input)
+    {
+        return accountService.ListUser(input);
     }
 
     @PostMapping("register")
